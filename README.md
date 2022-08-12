@@ -1,2 +1,2 @@
 # MyBookShopApp
-This is the skillbox project in the spring module
+Web-app and api for book-shop
