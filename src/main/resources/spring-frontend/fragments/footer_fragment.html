@@ -100,15 +100,16 @@
                     </li>
                     <li class="menu-item"><a class="menu-link" th:href="@{/contacts}" href="/contacts.html">Контакты</a>
                     </li>
-                    <!--                    <li class="menu-item">-->
-                    <!--                        <span>Выбор языка</span>-->
-                    <!--                        <select id="locales">-->
-                    <!--                            <option value=" "></option>-->
-                    <!--                            <option value="en">English</option>-->
-                    <!--                            <option value="ru">Русский</option>-->
-                    <!--                        </select>-->
-                    <!--                    </li>-->
                 </ul>
+
+                <p>
+                    <span th:text="#{topbar.language}">Выбор языка</span>
+                    <select id="locales">
+                        <option value=" "></option>
+                        <option value="en">English</option>
+                        <option value="ru">Русский</option>
+                    </select>
+                </p>
             </div>
         </div>
     </div>
