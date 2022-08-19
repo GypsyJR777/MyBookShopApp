@@ -1,17 +1,9 @@
 package com.github.GypsyJR777.MyBookShopApp.entity;
 
-import java.util.List;
-
 public class Book {
     private Integer id;
-    private String slug;
-    private String image;
-    private List<Author> author;
+    private Author author;
     private String title;
-    private int discount;
-    private boolean isBestSeller;
-    private float rating;
-    private Status status;
     private String priceOld;
     private String price;
 
@@ -23,27 +15,11 @@ public class Book {
         this.id = id;
     }
 
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public List<Author> getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(List<Author> author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
@@ -53,38 +29,6 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public int getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(int discount) {
-        this.discount = discount;
-    }
-
-    public boolean isBestSeller() {
-        return isBestSeller;
-    }
-
-    public void setBestSeller(boolean bestSeller) {
-        isBestSeller = bestSeller;
-    }
-
-    public float getRating() {
-        return rating;
-    }
-
-    public void setRating(float rating) {
-        this.rating = rating;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 
     public String getPriceOld() {
@@ -107,14 +51,8 @@ public class Book {
     public String toString() {
         return "Book{" +
                 "id=" + id +
-                ", slug='" + slug + '\'' +
-                ", image='" + image + '\'' +
-                ", author=" + author +
+                ", author='" + author.getLastName() + author.getFirstName() + '\'' +
                 ", title='" + title + '\'' +
-                ", discount=" + discount +
-                ", isBestSeller=" + isBestSeller +
-                ", rating=" + rating +
-                ", status=" + status +
                 ", priceOld='" + priceOld + '\'' +
                 ", price='" + price + '\'' +
                 '}';

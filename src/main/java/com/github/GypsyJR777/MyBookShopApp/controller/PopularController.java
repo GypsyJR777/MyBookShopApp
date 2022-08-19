@@ -12,21 +12,21 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/books")
-public class BooksController {
+public class PopularController {
     private final BookService bookService;
 
     @Autowired
-    public BooksController(BookService bookService) {
+    public PopularController(BookService bookService) {
         this.bookService = bookService;
     }
 
-    @GetMapping("/author/SLUG")
-    public String authorSlugPage() {
-        return "books/author";
+    @ModelAttribute("booksList")
+    public List<Book> bookList() {
+        return bookService.getBooksData();
     }
 
-    @GetMapping("/SLUG")
-    public String bookSlugPage() {
-        return "books/slug";
+    @GetMapping("/popular")
+    public String recentBookPage() {
+        return "books/popular";
     }
 }

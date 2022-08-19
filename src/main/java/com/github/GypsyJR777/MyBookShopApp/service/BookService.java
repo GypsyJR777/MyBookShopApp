@@ -32,7 +32,7 @@ public class BookService {
                     author.setLastName(rs.getString("lastName"));
 
                     book.setId(rs.getInt("id"));
-//                    book.setAuthor(author);
+                    book.setAuthor(author);
                     book.setTitle(rs.getString("title"));
                     book.setPriceOld(rs.getString("priceOld"));
                     book.setPrice(rs.getString("price"));
