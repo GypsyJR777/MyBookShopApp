@@ -9,7 +9,7 @@
 <!--[if IE 9]>
 <html class="ie9" lang="ru">
 <![endif]-->
-<!--[if gt IE 9]><!--> <html lang="ru"> <!--<![endif]-->
+<!--[if gt IE 9]><!--> <html lang="ru" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
 <head>
   <title>Тут название страницы написать</title>
   <meta name="description" content="Описание страницы">
@@ -54,16 +54,16 @@
   <div class="Middle">
     <div class="Middle-top">
       <div class="wrap">
-        <h1 class="Middle-title">Контакты
+        <h1 class="Middle-title" th:text="#{topbar.contacts}">Контакты
         </h1>
       </div>
     </div>
     <div class="wrap">
       <main class="Middle-main">
         <ul class="breadcrumbs">
-          <li class="breadcrumbs-item"><a href="/index.html">Главная</a>
+          <li class="breadcrumbs-item"><a href="/index.html" th:text="#{topbar.main}">Главная</a>
           </li>
-          <li class="breadcrumbs-item breadcrumbs-item_current"><span>Контакты</span>
+          <li class="breadcrumbs-item breadcrumbs-item_current"><span th:text="#{topbar.contacts}">Контакты</span>
           </li>
         </ul>
         <div class="Contacts">
@@ -72,7 +72,7 @@
               <h2>Контакты
               </h2>
               <div class="Contacts-prop">
-                <strong class="Contacts-propTitle">Телефон:
+                <strong class="Contacts-propTitle" th:text="#{contacts.phone}">Телефон:
                 </strong><span class="Contacts-propContent">8 (800) 484-48-48</span>
               </div>
               <div class="Contacts-prop">
@@ -80,13 +80,13 @@
                 </strong><span class="Contacts-propContent">test@test.ru</span>
               </div>
               <div class="Contacts-prop">
-                <strong class="Contacts-propTitle">Телеграм-бот:
+                <strong class="Contacts-propTitle" th:text="#{contacts.telegrambot}">Телеграм-бот:
                 </strong><span class="Contacts-propContent">@testBookShop</span>
               </div>
             </div>
             <div class="row-block">
               <div class="Contacts-form">
-                <h2>Напишите нам:
+                <h2 th:text="#{contacts.contactwithus}">Напишите нам:
                 </h2>
                 <form class="form" action="#" method="post">
                   <div class="form-group">
@@ -102,7 +102,7 @@
                     <textarea class="form-textarea Contacts-message" name="message" id="message" placeholder="Введите сообщение" data-validate="require"></textarea>
                   </div>
                   <div class="form-group">
-                    <button class="btn btn_primary form-btn" type="submit" name="sendMessage" id="sendMessage">Отправить
+                    <button class="btn btn_primary form-btn" type="submit" name="sendMessage" id="sendMessage" th:text="#{contacts.send}">Отправить
                     </button>
                   </div>
                 </form>

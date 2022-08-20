@@ -9,7 +9,7 @@
 <!--[if IE 9]>
 <html class="ie9" lang="ru">
 <![endif]-->
-<!--[if gt IE 9]><!--> <html lang="ru"> <!--<![endif]-->
+<!--[if gt IE 9]><!--> <html lang="ru" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
 <head>
   <title>Тут название страницы написать</title>
   <meta name="description" content="Описание страницы">
@@ -54,7 +54,7 @@
   <div class="Middle Middle_form">
     <div class="Middle-top">
       <div class="wrap">
-        <h1 class="Middle-title">Вход
+        <h1 class="Middle-title" th:text="#{topbar.signin}">Вход
         </h1>
       </div>
     </div>
@@ -64,14 +64,14 @@
           <div class="Login-ins">
             <div class="Login-step">
               <div class="form-group">
-                <label class="form-label Login-title">Введите e-mail или телефон
+                <label class="form-label Login-title" th:text="#{signin.entermailphone}">Введите e-mail или телефон
                 </label>
               </div>
               <div class="form-group">
                 <div class="row">
                   <div class="row-block">
                     <label class="toggle Login-type">
-                      <input type="radio" name="typeauth" value="phonetype" checked="checked"/><span class="toggle-box"></span><span class="toggle-text">Телефон</span>
+                      <input type="radio" name="typeauth" value="phonetype" checked="checked"/><span class="toggle-box"></span><span class="toggle-text" th:text="#{contacts.phone}">Телефон</span>
                     </label>
                   </div>
                   <div class="row-block">
@@ -92,7 +92,7 @@
             </div>
             <div class="Login-step Login-step_hide" data-type="phone">
               <div class="form-group">
-                <label class="form-label Login-title">На&nbsp;Ваш телефон отправлено сообщение с&nbsp;кодом для входа. Введите его:
+                <label class="form-label Login-title" th:text="#{signin.messagecode}">На&nbsp;Ваш телефон отправлено сообщение с&nbsp;кодом для входа. Введите его:
                 </label>
               </div>
               <div class="form-group form-group_key">
@@ -105,7 +105,7 @@
             </div>
             <div class="Login-step Login-step_hide" data-type="mail">
               <div class="form-group">
-                <label class="form-label Login-title">На&nbsp;Ваш e-mail отправлена ссылка для входа и&nbsp;код. Перейдите по&nbsp;ссылке или введите код ниже:
+                <label class="form-label Login-title" th:text="#{signin.mailcode}">На&nbsp;Ваш e-mail отправлена ссылка для входа и&nbsp;код. Перейдите по&nbsp;ссылке или введите код ниже:
                 </label>
               </div>
               <div class="form-group form-group_key">
@@ -116,7 +116,7 @@
                 </button>
               </div>
             </div>
-            <div class="form-group form-group_center"><a class="Login-reg" href="/signup.html">Зарегистрироваться</a>
+            <div class="form-group form-group_center"><a class="Login-reg" href="/signup.html" th:text="#{signin.signup}">Зарегистрироваться</a>
             </div>
           </div>
         </form>

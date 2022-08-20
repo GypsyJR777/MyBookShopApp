@@ -9,7 +9,7 @@
 <!--[if IE 9]>
 <html class="ie9" lang="ru">
 <![endif]-->
-<!--[if gt IE 9]><!--> <html lang="ru"> <!--<![endif]-->
+<!--[if gt IE 9]><!--> <html lang="ru" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
 <head>
   <title>Тут название страницы написать</title>
   <meta name="description" content="Описание страницы">
@@ -55,9 +55,9 @@
     <div class="wrap">
       <main class="Middle-main">
         <ul class="breadcrumbs">
-          <li class="breadcrumbs-item"><a href="/index.html">Главная</a>
+          <li class="breadcrumbs-item"><a href="/index.html" th:text="#{topbar.main}">Главная</a>
           </li>
-          <li class="breadcrumbs-item"><a href="/authors/index.html">Авторы</a>
+          <li class="breadcrumbs-item"><a href="/authors/index.html" th:text="#{topbar.authors}">Авторы</a>
           </li>
           <li class="breadcrumbs-item breadcrumbs-item_current"><span>Борис Васильевич Бедный</span>
           </li>
@@ -72,7 +72,7 @@
               <div class="pict pict_left"><img src="/assets/img/content/main/card.jpg" alt="card.jpg"/>
               </div>
               <div>
-                <h2>Биография
+                <h2 th:text="#{authors.biography}">Биография
                 </h2>
                 <p>Борис Бедный родился в семье учителя в 1916 году в станице Ярославская Краснодарского края. Окончил Майкопский лесной техникум и был послан учиться в Ленинградскую лесотехническую академию. Стал специалистом по сплаву леса и приехал в Республику Коми, работать на сплавных предприятиях.
                 </p>
@@ -106,7 +106,7 @@
         </article>
         <div class="Section">
           <header class="Section-header">
-            <h2 class="Section-title">Книги автора
+            <h2 class="Section-title" th:text="#{authors.booksbyauthor}">Книги автора
             </h2>
           </header>
           <div class="Slider Slider_carousel">

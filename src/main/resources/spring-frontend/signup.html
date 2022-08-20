@@ -9,7 +9,7 @@
 <!--[if IE 9]>
 <html class="ie9" lang="ru">
 <![endif]-->
-<!--[if gt IE 9]><!--> <html lang="ru"> <!--<![endif]-->
+<!--[if gt IE 9]><!--> <html lang="ru" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
 <head>
   <title>Тут название страницы написать</title>
   <meta name="description" content="Описание страницы">
@@ -54,7 +54,7 @@
   <div class="Middle Middle_form">
     <div class="Middle-top">
       <div class="wrap">
-        <h1 class="Middle-title">Регистрация
+        <h1 class="Middle-title" th:text="#{signin.signup}">Регистрация
         </h1>
       </div>
     </div>
@@ -74,7 +74,7 @@
                   <input class="form-input form-input_code" id="phoneCode" name="phoneCode" type="text" placeholder="Код из СМС" data-mask="999 999" data-validate="require key"/>
                 </div>
                 <div class="form-group">
-                  <button class="btn btn_success btn_sm form-btn" type="button" name="submitPhone" disabled="disabled" id="submitPhone">Подтвердить
+                  <button class="btn btn_success btn_sm form-btn" type="button" name="submitPhone" disabled="disabled" id="submitPhone" th:text="#{profile.confirm}">Подтвердить
                   </button>
                 </div>
               </div>
@@ -86,12 +86,12 @@
                   <input class="form-input form-input_code" id="mailCode" name="mailCode" type="text" placeholder="Код из письма" data-mask="999 999" data-validate="require key"/>
                 </div>
                 <div class="form-group">
-                  <button class="btn btn_success btn_sm form-btn" type="button" name="submitMail" disabled="disabled" id="submitMail">Подтвердить
+                  <button class="btn btn_success btn_sm form-btn" type="button" name="submitMail" disabled="disabled" id="submitMail" th:text="#{profile.confirm}">Подтвердить
                   </button>
                 </div>
               </div>
               <div class="form-group form-group_center">
-                <button class="btn btn_primary form-btn" type="button" name="registration" id="registration" disabled="disabled">Зарегистрироваться
+                <button class="btn btn_primary form-btn" type="button" name="registration" id="registration" disabled="disabled" th:text="#{signin.signup}">Зарегистрироваться
                 </button>
               </div>
             </div>

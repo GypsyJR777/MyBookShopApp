@@ -9,7 +9,7 @@
 <!--[if IE 9]>
 <html class="ie9" lang="ru">
 <![endif]-->
-<!--[if gt IE 9]><!--> <html lang="ru"> <!--<![endif]-->
+<!--[if gt IE 9]><!--> <html lang="ru" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
 <head>
   <title>Тут название страницы написать</title>
   <meta name="description" content="Описание страницы">
@@ -55,18 +55,20 @@
     <div class="wrap">
       <main class="Middle-main">
         <ul class="breadcrumbs">
-          <li class="breadcrumbs-item"><a href="/index.html">Главная</a>
+          <li class="breadcrumbs-item"><a href="/index.html" th:text="#{topbar.main}">Главная</a>
           </li>
-          <li class="breadcrumbs-item"><a href="/profile.html">Мой профиль</a>
+          <li class="breadcrumbs-item"><a href="/profile.html" th:text="#{profile.myprofile}">Мой профиль</a>
           </li>
-          <li class="breadcrumbs-item breadcrumbs-item_current"><span>Мои книги</span>
+          <li class="breadcrumbs-item breadcrumbs-item_current"><span th:text="#{profile.mybooks}">Мои книги</span>
           </li>
         </ul>
         <div class="Section">
           <div class="Section-header">
-            <h1 class="Section-title">Мои книги
+            <h1 class="Section-title" th:text="#{profile.mybooks}">Мои книги
             </h1>
-            <div class="Section-header-links"><span class="Section-header-link Section-header-link_ACTIVE">Непрочитанные</span><a class="Section-header-link" href="/myarchive.html">Архив</a>
+            <div class="Section-header-links">
+              <span class="Section-header-link Section-header-link_ACTIVE" th:text="#{profile.unread}">Непрочитанные</span>
+              <a class="Section-header-link" href="/myarchive.html" th:text="#{profile.archive}">Архив</a>
             </div>
           </div>
           <div class="Cards">

@@ -9,7 +9,7 @@
 <!--[if IE 9]>
 <html class="ie9" lang="ru">
 <![endif]-->
-<!--[if gt IE 9]><!--> <html lang="ru"> <!--<![endif]-->
+<!--[if gt IE 9]><!--> <html lang="ru" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
 <head>
   <title>Тут название страницы написать</title>
   <meta name="description" content="Описание страницы">
@@ -54,13 +54,13 @@
   <div class="Middle Middle_search">
     <div class="wrap">
       <main class="Middle-main">
-        <h1 class="Middle-title">Поиск
+        <h1 class="Middle-title" th:text="#{search.button}">Поиск
         </h1>
         <div class="Section">
           <div class="search">
             <form class="form form_search" action="#" method="post" data-searchlimit="20">
               <input class="search-input" id="querypage" name="querypage" type="text" placeholder="Search over 30 million book titles" value="Техника"/>
-              <button class="search-button" type="submit" name="searchpage" id="searchpage">Поиск
+              <button class="search-button" type="submit" name="searchpage" id="searchpage" th:text="#{search.button}">Поиск
               </button>
             </form>
           </div>

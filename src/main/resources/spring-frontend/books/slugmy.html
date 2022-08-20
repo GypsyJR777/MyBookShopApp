@@ -9,7 +9,7 @@
 <!--[if IE 9]>
 <html class="ie9" lang="ru">
 <![endif]-->
-<!--[if gt IE 9]><!--> <html lang="ru"> <!--<![endif]-->
+<!--[if gt IE 9]><!--> <html lang="ru" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
 <head>
   <title>Тут название страницы написать</title>
   <meta name="description" content="Описание страницы">
@@ -55,9 +55,9 @@
     <div class="wrap">
       <main class="Middle-main">
         <ul class="breadcrumbs">
-          <li class="breadcrumbs-item"><a href="/index.html">Главная</a>
+          <li class="breadcrumbs-item"><a href="/index.html" th:text="#{topbar.main}">Главная</a>
           </li>
-          <li class="breadcrumbs-item"><a href="/genres/index.html">Книги</a>
+          <li class="breadcrumbs-item"><a href="/genres/index.html" th:text="#{books.books}">Книги</a>
           </li>
           <li class="breadcrumbs-item breadcrumbs-item_current"><span>Мара и морок</span>
           </li>
@@ -74,7 +74,7 @@
                 </h1>
                 <div class="ProductCard-author"><span class="ProductCard-titleProp">Автор:</span>&#32;<a href="#">Лия Арден</a>
                 </div>
-                <div class="ProductCard-rating"><span class="ProductCard-titleProp">Рейтинг:</span>
+                <div class="ProductCard-rating"><span class="ProductCard-titleProp" th:text="#{books.rating}">Рейтинг:</span>
                   <button class="trigger trigger_dropdown" type="button">
                     <div class="Rating Rating_noStyleLink"><span class="Rating-stars"><span class="Rating-star Rating-star_view">
                           <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
@@ -115,7 +115,7 @@
                     </div>
                     <div class="modal modal_compression modal_dropdown">
                       <div class="modal-window"><a class="modal-close" href="#"><span></span><span></span></a>
-                        <strong class="modal-title">Распределение оценок
+                        <strong class="modal-title" th:text="#{books.distr}">Распределение оценок
                         </strong>
                         <div class="RatingGroup"><span class="Rating"><span class="Rating-stars"><span class="Rating-star Rating-star_view">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
@@ -298,7 +298,7 @@
                     </div>
                   </button>
                 </div>
-                <div class="ProductCard-assessment"><span class="ProductCard-titleProp">Оцените книгу:</span><span class="Rating Rating_input" data-bookid="2121"><span class="Rating-stars"><span class="Rating-star">
+                <div class="ProductCard-assessment"><span class="ProductCard-titleProp" th:text="#{books.rate}">Оцените книгу:</span><span class="Rating Rating_input" data-bookid="2121"><span class="Rating-stars"><span class="Rating-star">
                         <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
                           <g>
                             <g>
@@ -340,9 +340,9 @@
                         </svg></span>
                       <input name="rating" type="radio" value="5"/></span></span>
                 </div>
-                <div class="ProductCard-tags"><span class="ProductCard-titleProp">Тэги:</span><a href="/tags/">Современные</a>,&#32;<a href="/tags/">Психологическая проза</a>
+                <div class="ProductCard-tags"><span class="ProductCard-titleProp" th:text="#{books.tags}">Тэги:</span><a href="/tags/">Современные</a>,&#32;<a href="/tags/">Психологическая проза</a>
                 </div>
-                <div class="ProductCard-cost"><span class="ProductCard-titleProp">Цена:</span><span class="ProductCard-priceOld">₽300</span><span class="ProductCard-price">₽180</span>
+                <div class="ProductCard-cost"><span class="ProductCard-titleProp" th:text="#{books.price}">Цена:</span><span class="ProductCard-priceOld">₽300</span><span class="ProductCard-price">₽180</span>
                 </div>
                 <!--+div.-info
                 //+div.-cost
@@ -388,7 +388,7 @@
           </div>
           <div class="Product-comments">
             <div class="Product-comments-header">
-              <h3 class="Product-comments-title">Отзывы
+              <h3 class="Product-comments-title" th:text="#{books.reviews}">Отзывы
               </h3><span class="Rating"><span class="Rating-stars"><span class="Rating-star Rating-star_view">
                     <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
                       <g>
@@ -428,7 +428,7 @@
             </div>
           </div>
           <div class="Comments">
-            <strong class="Comments-title">Написать отзыв
+            <strong class="Comments-title" th:text="#{books.writerev}">Написать отзыв
             </strong>
             <div class="Comments-addComment">
               <form class="form" action="#" method="post" data-bookid="1111">
@@ -436,7 +436,7 @@
                   <textarea class="form-textarea Comments-review" name="review" id="review" placeholder="Текст отзыва" data-validate="require"></textarea>
                 </div>
                 <div class="form-group Comments-sendReview">
-                  <button class="btn btn_warning" type="submit">Отправить отзыв
+                  <button class="btn btn_warning" type="submit" th:text="#{books.sendrev}">Отправить отзыв
                   </button>
                 </div>
               </form>
