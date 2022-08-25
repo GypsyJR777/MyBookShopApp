@@ -2,6 +2,7 @@ package com.github.GypsyJR777.MyBookShopApp.service;
 
 import com.github.GypsyJR777.MyBookShopApp.entity.Author;
 import com.github.GypsyJR777.MyBookShopApp.entity.FirstLetterAuthor;
+import com.github.GypsyJR777.MyBookShopApp.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -15,25 +16,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class AuthorService {
-    private JdbcTemplate jdbcTemplate;
+    private AuthorRepository authorRepository;
 
     @Autowired
-    public AuthorService(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public AuthorService(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
     }
 
     public List<Author> getAuthorsData() {
-        List<Author> authors = jdbcTemplate.query("SELECT * FROM authors", (ResultSet rs, int row) -> {
-            Author author = new Author();
-
-            author.setId(rs.getInt("id"));
-            author.setFirstName(rs.getString("firstName"));
-            author.setLastName(rs.getString("lastName"));
-
-            return author;
-        });
-
-        return new ArrayList<>(authors);
+        return authorRepository.findAll();
     }
 
     public List<FirstLetterAuthor> getMapAuthorsAndFirstLetters() {

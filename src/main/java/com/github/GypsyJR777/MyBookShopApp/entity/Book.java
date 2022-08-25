@@ -1,7 +1,15 @@
 package com.github.GypsyJR777.MyBookShopApp.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "books")
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
     private Author author;
     private String title;
     private String priceOld;
@@ -47,14 +55,4 @@ public class Book {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", author='" + author.getLastName() + author.getFirstName() + '\'' +
-                ", title='" + title + '\'' +
-                ", priceOld='" + priceOld + '\'' +
-                ", price='" + price + '\'' +
-                '}';
-    }
 }
