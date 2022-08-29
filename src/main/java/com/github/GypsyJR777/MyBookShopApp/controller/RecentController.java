@@ -1,6 +1,6 @@
 package com.github.GypsyJR777.MyBookShopApp.controller;
 
-import com.github.GypsyJR777.MyBookShopApp.entity.Book;
+import com.github.GypsyJR777.MyBookShopApp.entity.book.Book;
 import com.github.GypsyJR777.MyBookShopApp.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

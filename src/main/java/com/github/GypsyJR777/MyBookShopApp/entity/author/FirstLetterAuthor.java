@@ -1,4 +1,6 @@
-package com.github.GypsyJR777.MyBookShopApp.entity;
+package com.github.GypsyJR777.MyBookShopApp.entity.author;
+
+import com.github.GypsyJR777.MyBookShopApp.entity.author.Author;
 
 import java.util.List;
 
