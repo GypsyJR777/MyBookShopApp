@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,8 +27,9 @@ public class AuthorService {
 
     public List<FirstLetterAuthor> getMapAuthorsAndFirstLetters() {
         List<Author> authors = getAuthorsData();
-        Map<String, List<Author>> fLettersAuthors = authors.stream().collect(
-                Collectors.groupingBy((Author a) -> a.getName().split(" ")[1].substring(0, 1))
+        Map<String, List<Author>> fLettersAuthors = new TreeMap<>(authors.stream().collect(
+                Collectors.groupingBy((Author a) -> a.getLastName().substring(0, 1)))
+//                Collectors.groupingBy((Author a) -> a.getName().split(" ")[1].substring(0, 1))
         );
 
         List<FirstLetterAuthor> firstLetterAuthors = new ArrayList<>();
