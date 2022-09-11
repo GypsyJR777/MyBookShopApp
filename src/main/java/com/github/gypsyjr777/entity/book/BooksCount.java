@@ -6,6 +6,14 @@ public class BooksCount {
     private int count;
     private List<Book> books;
 
+    public BooksCount() {
+    }
+
+    public BooksCount(List<Book> books) {
+        this.count = books.size();
+        this.books = books;
+    }
+
     public int getCount() {
         return count;
     }

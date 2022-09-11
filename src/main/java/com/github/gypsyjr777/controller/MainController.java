@@ -1,6 +1,7 @@
 package com.github.gypsyjr777.controller;
 
 import com.github.gypsyjr777.entity.book.Book;
+import com.github.gypsyjr777.entity.search.SearchWordDto;
 import com.github.gypsyjr777.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,12 @@ public class MainController {
 
     @ModelAttribute("recommendedBooks")
     public List<Book> recommendedBooks() {
-        return bookService.getBooksData();
+        return bookService.getPageOfRecommendedBooks(0, 6).getContent();
+    }
+
+    @ModelAttribute("searchWordDto")
+    public SearchWordDto searchWordDto() {
+        return new SearchWordDto();
     }
 
     @GetMapping("/")
