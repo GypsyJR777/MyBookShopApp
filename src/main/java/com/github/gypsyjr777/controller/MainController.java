@@ -29,6 +29,16 @@ public class MainController {
         return new SearchWordDto();
     }
 
+    @ModelAttribute("recentBooks")
+    public List<Book> recentBooks() {
+        return bookService.getPageOfRecommendedBooks(0, 6).getContent();
+    }
+
+    @ModelAttribute("popularBooks")
+    public List<Book> popularBooks() {
+        return bookService.getPageOfRecommendedBooks(0, 6).getContent();
+    }
+
     @GetMapping("/")
     public String mainPage() {
         return "index";

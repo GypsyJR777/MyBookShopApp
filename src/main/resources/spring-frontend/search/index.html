@@ -95,7 +95,7 @@ p.error-browser
                     </div>
                     <div class="Cards-footer Cards-footer_center">
                         <a class="btn btn_primary" href="#" data-refreshshow="search"
-                           th:attr="data-refreshquery=${searchWordDto.example}"
+                           th:attr="data-refreshshow = ${category}, data-refreshquery = ${refreshQuery}"
                            data-refreshoffset="0" data-refreshlimit="5"
                            data-refreshquery="Техника">Показать еще</a>
                     </div>

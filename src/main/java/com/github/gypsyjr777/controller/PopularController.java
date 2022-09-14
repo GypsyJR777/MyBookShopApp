@@ -1,17 +1,17 @@
 package com.github.gypsyjr777.controller;
 
 import com.github.gypsyjr777.entity.book.Book;
+import com.github.gypsyjr777.entity.book.BooksCount;
+import com.github.gypsyjr777.entity.search.SearchWordDto;
 import com.github.gypsyjr777.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/books")
+@RequestMapping("/books/popular")
 public class PopularController {
     private final BookService bookService;
 
@@ -20,13 +20,25 @@ public class PopularController {
         this.bookService = bookService;
     }
 
-    @ModelAttribute("booksList")
-    public List<Book> bookList() {
-        return bookService.getBooksData();
+    @ModelAttribute("searchWordDto")
+    public SearchWordDto searchWordDto() {
+        return new SearchWordDto();
     }
 
-    @GetMapping("/popular")
-    public String recentBookPage() {
+    @ModelAttribute("booksList")
+    public List<Book> bookList() {
+        return bookService.getPageOfPopularBooks(0, 20).getBooks();
+    }
+
+    @GetMapping("")
+    public String popularBookPage() {
         return "books/popular";
+    }
+
+    @GetMapping("/page")
+    @ResponseBody
+    public BooksCount nextPopularBookPage(@RequestParam("offset") Integer offset,
+                                          @RequestParam("limit") Integer limit) {
+        return bookService.getPageOfPopularBooks(offset, limit);
     }
 }

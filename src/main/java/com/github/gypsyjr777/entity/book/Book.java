@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -21,7 +22,7 @@ public class Book {
 
     @Column(name = "pub_date")
     @ApiModelProperty("date of book publication")
-    private Date pubDate;
+    private LocalDate pubDate;
 
     @ManyToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
@@ -54,6 +55,14 @@ public class Book {
     @ApiModelProperty("discount value for book")
     private Double price;
 
+    @Column(name = "purchase_amount")
+    private Long purchaseAmount;
+
+    @Column(name = "in_cart_amount")
+    private Long inCartAmount;
+
+    @Column(name = "postponed_amount")
+    private Long postponedAmount;
 
     public Integer getIsBestseller() {
         return isBestseller;
@@ -87,11 +96,11 @@ public class Book {
         this.description = description;
     }
 
-    public Date getPubDate() {
+    public LocalDate getPubDate() {
         return pubDate;
     }
 
-    public void setPubDate(Date pubDate) {
+    public void setPubDate(LocalDate pubDate) {
         this.pubDate = pubDate;
     }
 
