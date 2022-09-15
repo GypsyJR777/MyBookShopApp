@@ -25,8 +25,7 @@
     <div class="Cards-footer Cards-footer_center">
         <a class="btn btn_primary"
            href="#"
-           data-refreshshow="recent"
-           th:attr="data-refreshquery=${category}, data-refreshshow=${category}"
+           th:attr="data-refreshquery=${refreshQuery}, data-refreshshow=${category}, data-refreshid=${refreshId}"
            data-refreshoffset="0"
            data-refreshlimit="20"
            th:text="#{books.showmore}">

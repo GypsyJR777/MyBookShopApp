@@ -27,16 +27,16 @@ public class SearchController {
         return new SearchWordDto();
     }
 
-    @ModelAttribute("searchResults")
+    @ModelAttribute("booksList")
     public List<Book> searchResults() {
         return new ArrayList<>();
     }
 
-    @GetMapping({"/", "/{searchWordDto}"})
+    @GetMapping({"", "/{searchWordDto}"})
     public String getSearchResults(@PathVariable(value = "searchWordDto", required = false) SearchWordDto searchWord, Model model) {
         model.addAttribute("searchWordDto", searchWord);
         model.addAttribute(
-                "searchResults",
+                "booksList",
                 bookService.getPageOfSearchResultBooks(searchWord.getExample(), 0, 5).getContent()
         );
         return "search/index";

@@ -85,4 +85,9 @@ public class BookService {
 
         return new BooksCount(bookRepository.findBookByPopularity(nextPage).getContent());
     }
+
+    public BooksCount getPageBooksByTag(Integer id, Integer offset, Integer limit) {
+        Pageable nextPage = PageRequest.of(offset, limit);
+        return new BooksCount(bookRepository.findBookByIdInTag(id, nextPage).getContent());
+    }
 }
