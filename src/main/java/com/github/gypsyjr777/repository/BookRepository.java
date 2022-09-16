@@ -40,4 +40,10 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
             nativeQuery = true
     )
     Page<Book> findBookByIdInTag(Integer tagId, Pageable nextPage);
+
+    @Query(
+            value = "SELECT * FROM books b WHERE b.id IN (select bt.book_id from book2genre bt where bt.genre_id = ?1)",
+            nativeQuery = true
+    )
+    Page<Book> findBookByIdInGenre(Integer genreId, Pageable nextPage);
 }

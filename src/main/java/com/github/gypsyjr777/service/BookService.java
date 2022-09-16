@@ -86,8 +86,13 @@ public class BookService {
         return new BooksCount(bookRepository.findBookByPopularity(nextPage).getContent());
     }
 
-    public BooksCount getPageBooksByTag(Integer id, Integer offset, Integer limit) {
+    public BooksCount getPageBooksByTag(Integer tagId, Integer offset, Integer limit) {
         Pageable nextPage = PageRequest.of(offset, limit);
-        return new BooksCount(bookRepository.findBookByIdInTag(id, nextPage).getContent());
+        return new BooksCount(bookRepository.findBookByIdInTag(tagId, nextPage).getContent());
+    }
+
+    public BooksCount getPageBooksByGenre(Integer genreId, Integer offset, Integer limit) {
+        Pageable nextPage = PageRequest.of(offset, limit);
+        return new BooksCount(bookRepository.findBookByIdInGenre(genreId, nextPage).getContent());
     }
 }
