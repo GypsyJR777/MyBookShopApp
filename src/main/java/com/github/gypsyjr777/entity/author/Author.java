@@ -23,8 +23,10 @@ public class Author {
     private String firstName;
     @ApiModelProperty(value = "last name of author", example = "Blaskovits",position = 3)
     private String lastName;
-
-
+    private String slug;
+    private String photo;
+    @Column(columnDefinition = "TEXT")
+    private String description;
     @OneToMany(mappedBy = "author")
     @JsonIgnore
     private List<Book> bookList = new ArrayList<>();
@@ -64,6 +66,30 @@ public class Author {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
 

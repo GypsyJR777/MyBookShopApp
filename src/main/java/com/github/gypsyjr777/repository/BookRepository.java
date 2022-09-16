@@ -46,4 +46,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
             nativeQuery = true
     )
     Page<Book> findBookByIdInGenre(Integer genreId, Pageable nextPage);
+
+    Page<Book> findBookByAuthorId(Integer author_id, Pageable nextPage);
 }

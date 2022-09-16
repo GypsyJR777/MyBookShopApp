@@ -95,4 +95,9 @@ public class BookService {
         Pageable nextPage = PageRequest.of(offset, limit);
         return new BooksCount(bookRepository.findBookByIdInGenre(genreId, nextPage).getContent());
     }
+
+    public BooksCount getPageBooksByAuthor(Integer authorId, Integer offset, Integer limit) {
+        Pageable nextPage = PageRequest.of(offset, limit);
+        return new BooksCount(bookRepository.findBookByAuthorId(authorId, nextPage).getContent());
+    }
 }

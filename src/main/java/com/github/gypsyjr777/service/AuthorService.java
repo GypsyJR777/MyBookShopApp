@@ -45,4 +45,8 @@ public class AuthorService {
 
         return firstLetterAuthors;
     }
+
+    public Author getAuthorById(Integer authorId) {
+        return authorRepository.getById(authorId);
+    }
 }
