@@ -46,6 +46,7 @@ public class AuthorController {
     }
 
     @GetMapping("/page/{authorId}")
+    @ResponseBody
     public BooksCount getBooksPage(@PathVariable(name = "authorId") Integer authorId,
                                    @RequestParam("offset") Integer offset,
                                    @RequestParam("limit") Integer limit) {
