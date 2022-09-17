@@ -2,13 +2,12 @@ package com.github.gypsyjr777.controller;
 
 import com.github.gypsyjr777.entity.book.Book;
 import com.github.gypsyjr777.entity.book.BooksCount;
+import com.github.gypsyjr777.entity.search.SearchWordDto;
 import com.github.gypsyjr777.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,8 +21,14 @@ public class BooksController {
         this.bookService = bookService;
     }
 
-    @GetMapping("/author/SLUG")
-    public String authorSlugPage() {
+    @ModelAttribute("searchWordDto")
+    public SearchWordDto searchWordDto() {
+        return new SearchWordDto();
+    }
+
+    @GetMapping("/author/{authorId}")
+    public String bookSlugPage(@PathVariable(name = "authorId") Integer authorId, Model model) {
+        model.addAttribute("booksList", bookService.getPageBooksByAuthor(authorId, 0, 20).getBooks());
         return "books/author";
     }
 

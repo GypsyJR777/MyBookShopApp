@@ -70,7 +70,7 @@ p.error-browser
             <h2 class="Authors-title" th:id="${firstLetterAuthors.firstLetter.toLowerCase()}" th:text="${firstLetterAuthors.firstLetter}">
             </h2>
             <div class="Authors-letter" th:each="author: ${firstLetterAuthors.authors}">
-              <div class="Authors-item"><a href="/authors/slug.html" th:text="${author.lastName + ' ' + author.firstName}"></a>
+              <div class="Authors-item"><a th:href="@{'/authors/' + ${author.id}}" href="/authors/slug.html" th:text="${author.lastName + ' ' + author.firstName}"></a>
               </div>
             </div>
           </div>
