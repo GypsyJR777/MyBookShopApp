@@ -2,11 +2,15 @@ package com.github.gypsyjr777.entity.book.file;
 
 import com.github.gypsyjr777.entity.book.Book;
 import com.github.gypsyjr777.entity.user.UserEntity;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "file_download")
+@Getter
+@Setter
 public class FileDownloadEntity {
 
     @Id
@@ -23,36 +27,4 @@ public class FileDownloadEntity {
 
     @Column(columnDefinition = "INT NOT NULL DEFAULT 1")
     private int count;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
 }

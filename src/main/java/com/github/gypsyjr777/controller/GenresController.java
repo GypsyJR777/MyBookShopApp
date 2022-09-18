@@ -34,7 +34,7 @@ public class GenresController {
         return genreService.getAllGenres();
     }
 
-    @GetMapping("")
+    @GetMapping
     public String genresPage() {
         return "genres/index";
     }

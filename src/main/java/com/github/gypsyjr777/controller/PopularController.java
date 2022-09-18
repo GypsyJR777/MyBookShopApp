@@ -30,7 +30,7 @@ public class PopularController {
         return bookService.getPageOfPopularBooks(0, 20).getBooks();
     }
 
-    @GetMapping("")
+    @GetMapping
     public String popularBookPage() {
         return "books/popular";
     }

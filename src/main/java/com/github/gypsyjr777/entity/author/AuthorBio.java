@@ -1,7 +1,13 @@
 package com.github.gypsyjr777.entity.author;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Arrays;
 
+
+@Getter
+@Setter
 public class AuthorBio {
     private String little = "";
     private String other = "";
@@ -22,21 +28,5 @@ public class AuthorBio {
 
         this.little = little.toString();
         this.other = other.toString();
-    }
-
-    public String getLittle() {
-        return little;
-    }
-
-    public void setLittle(String little) {
-        this.little = little;
-    }
-
-    public String getOther() {
-        return other;
-    }
-
-    public void setOther(String other) {
-        this.other = other;
     }
 }

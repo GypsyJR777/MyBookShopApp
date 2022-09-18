@@ -28,7 +28,7 @@ public class AuthorController {
         return new SearchWordDto();
     }
 
-    @GetMapping("")
+    @GetMapping
     public String authorsPage(Model model) {
         model.addAttribute("authors", authorService.getMapAuthorsAndFirstLetters());
         return "authors/index";

@@ -2,12 +2,16 @@ package com.github.gypsyjr777.entity.book.links;
 
 import com.github.gypsyjr777.entity.book.Book;
 import com.github.gypsyjr777.entity.user.UserEntity;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "book2user")
+@Getter
+@Setter
 public class Book2UserEntity {
 
     @Id
@@ -27,44 +31,4 @@ public class Book2UserEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
-
-    public int getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
 }

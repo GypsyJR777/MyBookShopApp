@@ -6,6 +6,8 @@ import com.github.gypsyjr777.entity.author.Author;
 import com.github.gypsyjr777.entity.tag.Tag;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,6 +16,8 @@ import java.util.List;
 @Entity
 @Table(name = "books")
 @ApiModel(description = "entity representing a book")
+@Getter
+@Setter
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,110 +71,6 @@ public class Book {
 //    @ManyToMany
 //    @JoinTable(name = "book2tag", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
 //    private List<Tag> tagList;
-
-    public Integer getIsBestseller() {
-        return isBestseller;
-    }
-
-    public void setIsBestseller(Integer isBestseller) {
-        this.isBestseller = isBestseller;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDate getPubDate() {
-        return pubDate;
-    }
-
-    public void setPubDate(LocalDate pubDate) {
-        this.pubDate = pubDate;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Integer getPriceOld() {
-        return priceOld;
-    }
-
-    public void setPriceOld(Integer priceOld) {
-        this.priceOld = priceOld;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Long getPurchaseAmount() {
-        return purchaseAmount;
-    }
-
-    public void setPurchaseAmount(Long purchaseAmount) {
-        this.purchaseAmount = purchaseAmount;
-    }
-
-    public Long getInCartAmount() {
-        return inCartAmount;
-    }
-
-    public void setInCartAmount(Long inCartAmount) {
-        this.inCartAmount = inCartAmount;
-    }
-
-    public Long getPostponedAmount() {
-        return postponedAmount;
-    }
-
-    public void setPostponedAmount(Long postponedAmount) {
-        this.postponedAmount = postponedAmount;
-    }
 
 //    public List<Tag> getTagList() {
 //        return tagList;

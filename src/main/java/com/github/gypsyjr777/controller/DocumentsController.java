@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/documents")
 public class DocumentsController {
-    @GetMapping("")
+    @GetMapping
     public String documentsPage() {
         return "documents/index";
     }
