@@ -1,5 +1,6 @@
 package com.github.gypsyjr777.entity.book;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.gypsyjr777.entity.author.Author;
@@ -68,17 +69,15 @@ public class Book {
     @Column(name = "postponed_amount")
     private Long postponedAmount;
 
-//    @ManyToMany
-//    @JoinTable(name = "book2tag", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
-//    private List<Tag> tagList;
+    @JsonProperty
+    public Integer discountPrice() {
+        return priceOld - Math.toIntExact(Math.round(price * priceOld));
+    }
 
-//    public List<Tag> getTagList() {
-//        return tagList;
-//    }
-//
-//    public void setTagList(List<Tag> tagList) {
-//        this.tagList = tagList;
-//    }
+    @JsonGetter("authors")
+    public String authorsFullName() {
+        return author.toString();
+    }
 
     @Override
     public String toString() {

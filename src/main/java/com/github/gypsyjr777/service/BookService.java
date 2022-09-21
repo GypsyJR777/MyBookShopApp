@@ -100,4 +100,12 @@ public class BookService {
         Pageable nextPage = PageRequest.of(offset, limit);
         return new BooksCount(bookRepository.findBookByAuthorId(authorId, nextPage).getContent());
     }
+
+    public Book getBookBySlug(String slug) {
+        return bookRepository.findBookBySlug(slug);
+    }
+
+    public void saveBook(Book book){
+        bookRepository.save(book);
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -35,12 +36,14 @@ public class MainController {
 
     @ModelAttribute("recentBooks")
     public List<Book> recentBooks() {
-        return bookService.getPageOfRecommendedBooks(0, 6).getContent();
+        LocalDate dateTo = LocalDate.now();
+        LocalDate dateFrom = dateTo.minusMonths(1);
+        return bookService.getPageOfRecentBooks(dateFrom, dateTo, 0, 6).getBooks();
     }
 
     @ModelAttribute("popularBooks")
     public List<Book> popularBooks() {
-        return bookService.getPageOfRecommendedBooks(0, 6).getContent();
+        return bookService.getPageOfPopularBooks(0, 6).getBooks();
     }
 
     @ModelAttribute("tags")

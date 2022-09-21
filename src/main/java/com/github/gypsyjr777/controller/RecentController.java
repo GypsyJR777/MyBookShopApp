@@ -44,8 +44,14 @@ public class RecentController {
     @ResponseBody
     public BooksCount getNextRecentBookPage(@RequestParam("offset") Integer offset,
                                             @RequestParam("limit") Integer limit,
-                                            @RequestParam("from") String from,
-                                            @RequestParam("to") String to) {
+                                            @RequestParam(value = "from", required = false) String from,
+                                            @RequestParam(value = "to", required = false) String to) {
+        if (from == null && to == null) {
+            LocalDate dateTo = LocalDate.now();
+            LocalDate dateFrom = dateTo.minusYears(1);
+            return bookService.getPageOfRecentBooks(dateFrom, dateTo, offset, limit);
+        }
+
         return bookService.getPageOfRecentBooks(from, to, offset, limit);
     }
 }
