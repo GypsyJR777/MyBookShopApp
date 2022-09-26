@@ -1,17 +1,24 @@
 package com.github.gypsyjr777.entity.genre;
 
+import com.github.gypsyjr777.entity.book.Book;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "genre")
+@Getter
+@Setter
 public class GenreEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(columnDefinition = "INT")
-    private int parentId;
+    @OneToOne
+    @JoinColumn(name = "parent_id")
+    private GenreEntity parentId;
 
     @Column(columnDefinition = "VARCHAR(255) NOT NULL")
     private String slug;
@@ -19,35 +26,7 @@ public class GenreEntity {
     @Column(columnDefinition = "VARCHAR(255) NOT NULL")
     private String name;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    @ManyToMany
+    @JoinTable(name = "book2genre", joinColumns = @JoinColumn(name = "genre_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
+    private List<Book> bookList;
 }

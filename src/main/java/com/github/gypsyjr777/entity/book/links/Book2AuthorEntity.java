@@ -2,11 +2,15 @@ package com.github.gypsyjr777.entity.book.links;
 
 import com.github.gypsyjr777.entity.author.Author;
 import com.github.gypsyjr777.entity.book.Book;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "book2author")
+@Getter
+@Setter
 public class Book2AuthorEntity {
 
     @Id
@@ -23,36 +27,4 @@ public class Book2AuthorEntity {
 
     @Column(columnDefinition = "INT NOT NULL  DEFAULT 0")
     private int sortIndex;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-
-    public int getSortIndex() {
-        return sortIndex;
-    }
-
-    public void setSortIndex(int sortIndex) {
-        this.sortIndex = sortIndex;
-    }
 }
