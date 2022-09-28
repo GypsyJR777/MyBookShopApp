@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.gypsyjr777.entity.author.Author;
+import com.github.gypsyjr777.entity.book.file.BookFile;
 import com.github.gypsyjr777.entity.tag.Tag;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,6 +13,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -68,6 +70,9 @@ public class Book {
 
     @Column(name = "postponed_amount")
     private Long postponedAmount;
+
+    @OneToMany(mappedBy = "book")
+    private List<BookFile> bookFileList = new ArrayList<>();
 
     @JsonProperty
     public Integer discountPrice() {
