@@ -3,6 +3,7 @@ package com.github.gypsyjr777.controller;
 import com.github.gypsyjr777.entity.book.Book;
 import com.github.gypsyjr777.entity.book.BooksCount;
 import com.github.gypsyjr777.entity.search.SearchWordDto;
+import com.github.gypsyjr777.errs.EmptySearchException;
 import com.github.gypsyjr777.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,13 +34,18 @@ public class SearchController {
     }
 
     @GetMapping({"", "/{searchWordDto}"})
-    public String getSearchResults(@PathVariable(value = "searchWordDto", required = false) SearchWordDto searchWord, Model model) {
-        model.addAttribute("searchWordDto", searchWord);
-        model.addAttribute(
-                "booksList",
-                bookService.getPageOfSearchResultBooks(searchWord.getExample(), 0, 5).getContent()
-        );
-        return "search/index";
+    public String getSearchResults(@PathVariable(value = "searchWordDto", required = false) SearchWordDto searchWord, Model model) throws EmptySearchException {
+        if (searchWord != null) {
+            model.addAttribute("searchWordDto", searchWord);
+            model.addAttribute(
+                    "booksList",
+                    bookService.getPageOfSearchResultBooks(searchWord.getExample(), 0, 5).getContent()
+            );
+
+            return "search/index";
+        } else {
+            throw new EmptySearchException("Поиск по null невозможен");
+        }
     }
 
     @GetMapping("/page/{searchWordDto}")
