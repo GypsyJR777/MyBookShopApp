@@ -4,7 +4,7 @@
 <div class="Cards Cards_refresh" th:fragment="pool" data-loadoffset="0" data-loadlimit="20">
     <div class="Card" th:each="book : ${booksList}">
         <div class="Card-picture">
-            <a href="#" th:href="${book.id}">
+            <a href="#" th:href="@{'/books/' + ${book.slug}}">
                 <img
                         th:src="${book.image}"
                         src="/assets/img/content/main/card.jpg"

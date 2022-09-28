@@ -3134,3 +3134,11 @@ insert into book2genre (id, book_id, genre_id) values (997, 968, 18);
 insert into book2genre (id, book_id, genre_id) values (998, 708, 46);
 insert into book2genre (id, book_id, genre_id) values (999, 865, 7);
 insert into book2genre (id, book_id, genre_id) values (1000, 988, 14);
+
+insert into book_file_type (id, name, description) values (1, 'PDF', '');
+insert into book_file_type (id, name, description) values (2, 'EPUB', '');
+insert into book_file_type (id, name, description) values (3, 'FB2', '');
+
+insert into book_file (id, hash, type_id, path, book_id) values (1, 'werhgbkwergr32r23', 2, '/RockRule.epub', 25);
+insert into book_file (id, hash, type_id, path, book_id) values (2, 'werhgbkwergr32r234', 1, '/RockRule.pdf', 25);
+insert into book_file (id, hash, type_id, path, book_id) values (3, 'rty425345', 3, '/RockRule.fb2', 25);

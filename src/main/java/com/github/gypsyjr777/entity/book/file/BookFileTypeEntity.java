@@ -1,5 +1,6 @@
 package com.github.gypsyjr777.entity.book.file;
 
+import com.github.gypsyjr777.entity.enums.FileType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,7 @@ public class BookFileTypeEntity {
     private int id;
 
     @Column(columnDefinition = "VARCHAR(255) NOT NULL")
-    private String name;
+    private FileType name;
 
     @Column(columnDefinition = "TEXT")
     private String description;
