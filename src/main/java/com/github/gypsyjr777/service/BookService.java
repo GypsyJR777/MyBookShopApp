@@ -116,4 +116,8 @@ public class BookService {
     public void saveBook(Book book){
         bookRepository.save(book);
     }
+
+    public List<Book> getBooksBySlugs(String[] slugs){
+        return bookRepository.findBooksBySlugIn(slugs);
+    }
 }
