@@ -35,10 +35,10 @@ public class BookShopCartController {
         return new SearchWordDto();
     }
 
-    @PostMapping("/changeBookStatus/{slug}")
-    public String handleChangeBookStatus(@PathVariable String slug,
-                                         @CookieValue(name = "cartContents", required = false) String cartContents,
-                                         HttpServletResponse response, Model model) {
+    @PostMapping("/changeBookStatus/cart/{slug}")
+    public String handleAddBookToCart(@PathVariable String slug,
+                                      @CookieValue(name = "cartContents", required = false) String cartContents,
+                                      HttpServletResponse response, Model model) {
         if (cartContents == null || cartContents.equals("")) {
             Cookie cookie = new Cookie("cartContents", slug);
             cookie.setPath("/books");
@@ -47,6 +47,7 @@ public class BookShopCartController {
         } else if (!cartContents.contains(slug)) {
             StringJoiner stringJoiner = new StringJoiner("/");
             stringJoiner.add(cartContents).add(slug);
+
             Cookie cookie = new Cookie("cartContents", stringJoiner.toString());
             cookie.setPath("/books");
             response.addCookie(cookie);
@@ -60,7 +61,7 @@ public class BookShopCartController {
     public String handleRemoveBookFromCartRequest(@PathVariable("slug") String slug,
                                                   @CookieValue(name = "cartContents", required = false) String cartContents,
                                                   HttpServletResponse response, Model model) {
-        if (cartContents != null || !cartContents.equals("")) {
+        if (cartContents != null && !cartContents.equals("")) {
             ArrayList<String> cookieBooks = new ArrayList<>(Arrays.asList(cartContents.split("/")));
             cookieBooks.remove(slug);
 
