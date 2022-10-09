@@ -15,16 +15,6 @@ public class UserController {
         return "signup";
     }
 
-    @GetMapping("/cart")
-    public String cartPage() {
-        return "cart";
-    }
-
-    @GetMapping("/postponed")
-    public String postponedPage() {
-        return "postponed";
-    }
-
     @GetMapping("/profile")
     public String profilePage() {
         return "profile";

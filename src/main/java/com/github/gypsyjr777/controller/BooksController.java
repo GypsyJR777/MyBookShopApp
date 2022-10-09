@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.logging.Logger;
 
 @Controller
@@ -44,7 +45,12 @@ public class BooksController {
 
     @GetMapping("/{slug}")
     public String bookSlugPage(@PathVariable String slug, Model model) {
+        List<Integer> rates = bookService.getRates(slug);
+
         model.addAttribute("slugBook", bookService.getBookBySlug(slug));
+        model.addAttribute("bookRate", bookService.getRateByBookSlug(slug));
+        model.addAttribute("bookRates", rates);
+
         return "books/slug";
     }
 
