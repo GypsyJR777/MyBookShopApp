@@ -2,6 +2,7 @@ package com.github.gypsyjr777.controller;
 
 import com.github.gypsyjr777.entity.book.Book;
 import com.github.gypsyjr777.entity.book.BooksCount;
+import com.github.gypsyjr777.entity.book.review.BookReviewEntity;
 import com.github.gypsyjr777.entity.search.SearchWordDto;
 import com.github.gypsyjr777.service.BookService;
 import com.github.gypsyjr777.service.ResourceStorage;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -37,6 +39,16 @@ public class BooksController {
         return new SearchWordDto();
     }
 
+    @ModelAttribute("reviews")
+    public List<BookReviewEntity> bookReviews() {
+        return new ArrayList<>();
+    }
+
+    @ModelAttribute("isAuth")
+    public boolean isAuth() {
+        return false;
+    }
+
     @GetMapping("/author/{authorId}")
     public String bookSlugPage(@PathVariable(name = "authorId") Integer authorId, Model model) {
         model.addAttribute("booksList", bookService.getPageBooksByAuthor(authorId, 0, 20).getBooks());
@@ -50,6 +62,7 @@ public class BooksController {
         model.addAttribute("slugBook", bookService.getBookBySlug(slug));
         model.addAttribute("bookRate", bookService.getRateByBookSlug(slug));
         model.addAttribute("bookRates", rates);
+        model.addAttribute("reviews", bookService.getReviews(slug));
 
         return "books/slug";
     }

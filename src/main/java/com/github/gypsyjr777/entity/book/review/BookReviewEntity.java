@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "book_review")
@@ -31,4 +32,25 @@ public class BookReviewEntity {
 
     @Column(columnDefinition = "TEXT NOT NULL")
     private String text;
+
+    public String getFormatDate() {
+        return time.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
+    }
+
+    public String getLittleReview() {
+        String[] littleReview = text.split(". ");
+        if (text.length() < 600) {
+            return text;
+        }
+
+        return text.substring(0, 600);
+    }
+
+    public String getOtherPartReview() {
+        return text.substring(600);
+    }
+
+    public boolean isBigReview() {
+        return text.length() >= 600;
+    }
 }
