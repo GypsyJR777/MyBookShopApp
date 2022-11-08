@@ -2,8 +2,12 @@ package com.github.gypsyjr777.service;
 
 import com.github.gypsyjr777.entity.book.Book;
 import com.github.gypsyjr777.entity.book.BooksCount;
+import com.github.gypsyjr777.entity.book.rate.BookRate;
+import com.github.gypsyjr777.entity.book.review.BookReviewEntity;
 import com.github.gypsyjr777.errs.BookstoreApiWrongParameterException;
+import com.github.gypsyjr777.repository.BookRateRepository;
 import com.github.gypsyjr777.repository.BookRepository;
+import com.github.gypsyjr777.repository.BookReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,7 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,10 +25,14 @@ import java.util.List;
 public class BookService {
     private final String DATE_PATTERN = "dd.MM.yyyy";
     private final BookRepository bookRepository;
+    private final BookRateRepository bookRateRepository;
+    private final BookReviewRepository bookReviewRepository;
 
     @Autowired
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, BookRateRepository bookRateRepository, BookReviewRepository bookReviewRepository) {
         this.bookRepository = bookRepository;
+        this.bookRateRepository = bookRateRepository;
+        this.bookReviewRepository = bookReviewRepository;
     }
 
     public List<Book> getBooksData() {
@@ -119,5 +129,53 @@ public class BookService {
 
     public List<Book> getBooksBySlugs(String[] slugs){
         return bookRepository.findBooksBySlugIn(slugs);
+    }
+
+    public void saveRateToBook(Integer bookId, Integer rate) {
+        Book book = bookRepository.findBookById(bookId);
+
+        BookRate bookRate = new BookRate();
+        bookRate.setBook(book);
+        bookRate.setRate(rate);
+
+        bookRateRepository.save(bookRate);
+    }
+
+    public Integer getRateByBookSlug(String slug) {
+        return bookRateRepository.findAvgByBook(bookRepository.findBookBySlug(slug));
+    }
+
+    public List<Integer> getRates(String slug) {
+        List<Integer> rates = new ArrayList<>();
+        Book book = bookRepository.findBookBySlug(slug);
+
+        for (int i = 0; i < 5; ++i) {
+            rates.add(bookRateRepository.countByBookAndRate(book, i + 1));
+        }
+
+        rates.add(bookRateRepository.countByBook(book));
+
+        return rates;
+    }
+
+    public Integer getCountByBookAndRate(Integer bookId, Integer rate) {
+        return bookRateRepository.countByBookAndRate(bookRepository.findBookById(bookId), rate);
+    }
+
+    public void addReview(String slug, String text) {
+        if (!text.equals("")) {
+            Book book = bookRepository.findBookBySlug(slug);
+
+            BookReviewEntity bookReview = new BookReviewEntity();
+            bookReview.setBook(book);
+            bookReview.setTime(LocalDateTime.now());
+            bookReview.setText(text);
+
+            bookReviewRepository.save(bookReview);
+        }
+    }
+
+    public List<BookReviewEntity> getReviews(String slug) {
+        return bookReviewRepository.findAllByBook(bookRepository.findBookBySlug(slug));
     }
 }

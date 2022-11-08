@@ -37,7 +37,7 @@ public class MainController {
     @ModelAttribute("recentBooks")
     public List<Book> recentBooks() {
         LocalDate dateTo = LocalDate.now();
-        LocalDate dateFrom = dateTo.minusMonths(1);
+        LocalDate dateFrom = dateTo.minusMonths(12);
         return bookService.getPageOfRecentBooks(dateFrom, dateTo, 0, 6).getBooks();
     }
 

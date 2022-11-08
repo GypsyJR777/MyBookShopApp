@@ -58,9 +58,9 @@ p.error-browser
     <div class="wrap">
         <main class="Middle-main">
             <ul class="breadcrumbs">
-                <li class="breadcrumbs-item"><a href="/index.html" th:text="#{topbar.main}">Главная</a>
+                <li class="breadcrumbs-item"><a href="/index.html" th:href="@{/}" th:text="#{topbar.main}">Главная</a>
                 </li>
-                <li class="breadcrumbs-item"><a href="/genres/index.html" th:text="#{books.books}">Книги</a>
+                <li class="breadcrumbs-item"><a href="/genres/index.html" th:href="@{/genres}" th:text="#{books.books}">Книги</a>
                 </li>
                 <li class="breadcrumbs-item breadcrumbs-item_current" th:text="${slugBook.title}">
                     <span>Мара и морок</span>
@@ -90,8 +90,10 @@ p.error-browser
                             <div class="ProductCard-rating">
                                 <span class="ProductCard-titleProp" th:text="#{books.rating}">Рейтинг:</span>
                                 <button class="trigger trigger_dropdown" type="button">
-                                    <div class="Rating Rating_noStyleLink"><span class="Rating-stars"><span
-                                            class="Rating-star Rating-star_view">
+                                    <div class="Rating Rating_noStyleLink">
+                                        <span class="Rating-stars">
+                                            <span class="Rating-star"
+                                                  th:classappend="${bookRate >= 1} ? 'Rating-star_view' : ''">
                           <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
                             <g>
                               <g>
@@ -99,7 +101,10 @@ p.error-browser
                                       d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                               </g>
                             </g>
-                          </svg></span><span class="Rating-star Rating-star_view">
+                          </svg></span>
+
+                                            <span class="Rating-star"
+                                                  th:classappend="${bookRate >= 2} ? 'Rating-star_view' : ''">
                           <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
                             <g>
                               <g>
@@ -107,7 +112,10 @@ p.error-browser
                                       d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                               </g>
                             </g>
-                          </svg></span><span class="Rating-star">
+                          </svg></span>
+
+                                            <span class="Rating-star"
+                                                  th:classappend="${bookRate >= 3} ? 'Rating-star_view' : ''">
                           <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
                             <g>
                               <g>
@@ -115,7 +123,10 @@ p.error-browser
                                       d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                               </g>
                             </g>
-                          </svg></span><span class="Rating-star">
+                          </svg></span>
+
+                                            <span class="Rating-star"
+                                                  th:classappend="${bookRate >= 4} ? 'Rating-star_view' : ''">
                           <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
                             <g>
                               <g>
@@ -123,7 +134,9 @@ p.error-browser
                                       d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                               </g>
                             </g>
-                          </svg></span><span class="Rating-star">
+                          </svg></span>
+                                            <span class="Rating-star"
+                                                  th:classappend="${bookRate >= 5} ? 'Rating-star_view' : ''">
                           <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
                             <g>
                               <g>
@@ -131,7 +144,7 @@ p.error-browser
                                       d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                               </g>
                             </g>
-                          </svg></span></span><span class="Rating-title">(567)</span>
+                          </svg></span></span><span class="Rating-title" th:text="${bookRates[5]}">(567)</span>
                                     </div>
                                     <div class="modal modal_compression modal_dropdown">
                                         <div class="modal-window"><a class="modal-close"
@@ -179,7 +192,7 @@ p.error-browser
                                             d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                                     </g>
                                   </g>
-                                </svg></span></span><span class="Rating-title">1</span></span><br><span
+                                </svg></span></span><span class="Rating-title" th:text="${bookRates[4]}">1</span></span><br><span
                                                     class="Rating"><span class="Rating-stars"><span
                                                     class="Rating-star Rating-star_view">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
@@ -221,7 +234,7 @@ p.error-browser
                                             d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                                     </g>
                                   </g>
-                                </svg></span></span><span class="Rating-title">4</span></span><br><span
+                                </svg></span></span><span class="Rating-title" th:text="${bookRates[3]}">4</span></span><br><span
                                                     class="Rating"><span class="Rating-stars"><span
                                                     class="Rating-star Rating-star_view">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
@@ -263,7 +276,7 @@ p.error-browser
                                             d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                                     </g>
                                   </g>
-                                </svg></span></span><span class="Rating-title">0</span></span><br><span
+                                </svg></span></span><span class="Rating-title" th:text="${bookRates[2]}">0</span></span><br><span
                                                     class="Rating"><span class="Rating-stars"><span
                                                     class="Rating-star Rating-star_view">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
@@ -305,7 +318,9 @@ p.error-browser
                                             d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                                     </g>
                                   </g>
-                                </svg></span></span><span class="Rating-title">10</span></span><br><span class="Rating"><span
+                                </svg></span></span><span class="Rating-title"
+                                                          th:text="${bookRates[1]}">10</span></span><br><span
+                                                    class="Rating"><span
                                                     class="Rating-stars"><span class="Rating-star Rating-star_view">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
                                   <g>
@@ -346,72 +361,95 @@ p.error-browser
                                             d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
                                     </g>
                                   </g>
-                                </svg></span></span><span class="Rating-title">3</span></span>
+                                </svg></span></span><span class="Rating-title" th:text="${bookRates[0]}">3</span></span>
                                             </div>
                                         </div>
                                     </div>
                                 </button>
                             </div>
-                            <div class="ProductCard-assessment"><span class="ProductCard-titleProp"
-                                                                      th:text="#{books.rate}">Оцените книгу:</span><span
-                                    class="Rating Rating_input" data-bookid="2121"><span class="Rating-stars"><span
-                                    class="Rating-star">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
-                          <g>
-                            <g>
-                              <path fill="#ffc000"
-                                    d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                            </g>
-                          </g>
-                        </svg></span>
-                      <input name="rating" type="radio" value="1"/><span class="Rating-star">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
-                          <g>
-                            <g>
-                              <path fill="#ffc000"
-                                    d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                            </g>
-                          </g>
-                        </svg></span>
-                      <input name="rating" type="radio" value="2"/><span class="Rating-star">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
-                          <g>
-                            <g>
-                              <path fill="#ffc000"
-                                    d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                            </g>
-                          </g>
-                        </svg></span>
-                      <input name="rating" type="radio" value="3"/><span class="Rating-star">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
-                          <g>
-                            <g>
-                              <path fill="#ffc000"
-                                    d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                            </g>
-                          </g>
-                        </svg></span>
-                      <input name="rating" type="radio" value="4"/><span class="Rating-star">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
-                          <g>
-                            <g>
-                              <path fill="#ffc000"
-                                    d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                            </g>
-                          </g>
-                        </svg></span>
-                      <input name="rating" type="radio" value="5"/></span></span>
+                            <div class="ProductCard-assessment">
+                                <span class="ProductCard-titleProp"
+                                      th:text="#{books.rate}">Оцените книгу:</span>
+                                <span class="Rating Rating_input" data-bookid="2121"
+                                      th:attr="data-bookid=${slugBook.id}, data-bookslug=${slugBook.slug}">
+                                    <span class="Rating-stars">
+                                        <span class="Rating-star">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
+                                                 viewBox="0 0 19 18">
+                                                <g>
+                                                    <g>
+                                                        <path fill="#ffc000"
+                                                              d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z">
+                                                        </path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <input name="rating" type="radio" value="1"/>
+                                        <span class="Rating-star">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
+                                                 viewBox="0 0 19 18">
+                                                <g>
+                                                    <g>
+                                                        <path fill="#ffc000"
+                                                              d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z">
+                                                        </path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <input name="rating" type="radio" value="2"/>
+                                        <span class="Rating-star"><svg xmlns="http://www.w3.org/2000/svg" width="19"
+                                                                       height="18" viewBox="0 0 19 18">
+                                            <g>
+                                                <g>
+                                                    <path fill="#ffc000"
+                                                          d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z">
+                                                    </path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        </span>
+                                        <input name="rating" type="radio" value="3"/>
+                                        <span class="Rating-star">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
+                                                 viewBox="0 0 19 18">
+                                                <g>
+                                                    <g>
+                                                        <path fill="#ffc000"
+                                                              d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <input name="rating" type="radio" value="4"/>
+                                        <span class="Rating-star">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
+                                                 viewBox="0 0 19 18">
+                                                <g>
+                                                    <g>
+                                                        <path fill="#ffc000"
+                                                              d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z">
+
+                                                        </path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <input name="rating" type="radio" value="5"/>
+                                    </span>
+                                </span>
                             </div>
                             <div class="ProductCard-tags">
-                                <span class="ProductCard-titleProp"
-                                      th:text="#{books.tags}">Тэги:
-                                </span>
+                                            <span class="ProductCard-titleProp"
+                                                  th:text="#{books.tags}">Тэги:
+                                            </span>
                                 <a href="/tags/">Современные</a>,&#32;
                                 <a href="/tags/">Психологическая проза</a>
                             </div>
                             <div class="ProductCard-cost">
-                                <span class="ProductCard-titleProp"
-                                      th:text="#{books.price}">Цена:</span>
+                                            <span class="ProductCard-titleProp"
+                                                  th:text="#{books.price}">Цена:</span>
                                 <span class="ProductCard-priceOld" th:text="${slugBook.priceOld}">₽300</span>
                                 <span class="ProductCard-price" th:text="${slugBook.discountPrice()}">₽180</span>
                             </div>
@@ -494,6 +532,23 @@ p.error-browser
                         <!--        +btn('button')(data-sendstatus='UNLINK' data-bookid="[1111]")._muted Вернуть из архива-->
                     </div>
                 </div>
+                <div th:if="${!isAuth}">
+                    <h2>Чтобы оставить отзыв, авторизуйтесь</h2>
+                </div>
+                <div th:if="${!isAuth}">
+                    <div id="reviewText" contenteditable="true" tabindex="0" dir="ltr" spellcheck="false"
+                         autocapitalize="off"
+                         autofocus></div>
+                    <div>
+                        <button class="btn btn_primary" data-sendstatus="REVIEW"
+                                data-bookid="[1111]" data-check="false"
+                                th:attr="data-bookid = ${'addreview/' + slugBook.slug}"
+                                data-btntype="check" data-btnradio="buyblock"
+                                data-alttext="Вернуть из архива">
+                            <span class="btn-content">Опубликовать</span>
+                        </button>
+                    </div>
+                </div>
                 <div class="Product-comments">
                     <div class="Product-comments-header">
                         <h3 class="Product-comments-title" th:text="#{books.reviews}">Отзывы
@@ -501,7 +556,7 @@ p.error-browser
                     </div>
                 </div>
                 <div class="Comments">
-                    <div class="Comment">
+                    <div class="Comment" th:each="review : ${reviews}">
                         <div class="Comment-column Comment-column_pict">
                             <div class="Comment-avatar">
                             </div>
@@ -509,91 +564,11 @@ p.error-browser
                         <div class="Comment-column">
                             <header class="Comment-header">
                                 <div>
-                                    <strong class="Comment-title">Александр Кузнецов<span class="Comment-rating"><span
-                                            class="Rating Rating_comment"><span class="Rating-stars"><span
-                                            class="Rating-star Rating-star_view">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
-                                <g>
-                                  <g>
-                                    <path fill="#ffc000"
-                                          d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                                  </g>
-                                </g>
-                              </svg></span><span class="Rating-star Rating-star_view">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
-                                <g>
-                                  <g>
-                                    <path fill="#ffc000"
-                                          d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                                  </g>
-                                </g>
-                              </svg></span><span class="Rating-star">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
-                                <g>
-                                  <g>
-                                    <path fill="#ffc000"
-                                          d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                                  </g>
-                                </g>
-                              </svg></span><span class="Rating-star">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
-                                <g>
-                                  <g>
-                                    <path fill="#ffc000"
-                                          d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                                  </g>
-                                </g>
-                              </svg></span><span class="Rating-star">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
-                                <g>
-                                  <g>
-                                    <path fill="#ffc000"
-                                          d="M9.5 14.925L3.629 18l1.121-6.512L0 6.875l6.564-.95L9.5 0l2.936 5.925 6.564.95-4.75 4.613L15.371 18z"></path>
-                                  </g>
-                                </g>
-                              </svg></span></span></span></span>
-                                    </strong><span class="Comment-date">17.04.2020 16:40</span>
-                                </div>
-                            </header>
-                            <div class="Comment-content">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit doli. Aenean commodo ligula
-                                    eget dolor. Aenean massa. Cumtipsu sociis natoque penatibus et magnis dis parturient
-                                    montesti, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                                    eutu, pretiumem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel,
-                                    aliquet nec, vulputate eget, arcu. In enim justotuio, rhoncus ut loret, imperdiet a,
-                                    venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer
-                                    tincidunt. Cras dapibus. Vivamus element semper nisi. Aenean vulputate eleifend
-                                    tellus. Aenean leo ligula, porttitor eu, consequat vitae.
-                                </p>
-                                <div class="Comment-footer">
-                                    <div class="Comment-appeal">
-                                        <button class="btn btn_white btn_like" data-btntype="check" data-check="false"
-                                                data-btnradio="two2" data-likeid="1111"><span class="btn-icon"><img
-                                                src="/assets/img/icons/comment/like.svg" alt="like.svg"/></span><span
-                                                class="btn-content">200</span>
-                                        </button>
-                                        <button class="btn btn_white btn_dislike" data-btntype="check"
-                                                data-check="false" data-btnradio="two2" data-likeid="1111"><span
-                                                class="btn-icon"><img src="/assets/img/icons/comment/dislike.svg"
-                                                                      alt="dislike.svg"/></span><span
-                                                class="btn-content">100</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="Comment">
-                        <div class="Comment-column Comment-column_pict">
-                            <div class="Comment-avatar">
-                            </div>
-                        </div>
-                        <div class="Comment-column">
-                            <header class="Comment-header">
-                                <div>
-                                    <strong class="Comment-title">Дмитрий Петров<span class="Comment-rating"><span
-                                            class="Rating Rating_comment"><span class="Rating-stars"><span
-                                            class="Rating-star Rating-star_view">
+                                    <strong class="Comment-title"
+                                            th:text="${review.user} == null ? 'Anonym' : ${review.user}">Дмитрий Петров
+                                        <span class="Comment-rating"><span
+                                                class="Rating Rating_comment"><span class="Rating-stars"><span
+                                                class="Rating-star Rating-star_view">
                               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
                                 <g>
                                   <g>
@@ -634,13 +609,14 @@ p.error-browser
                                   </g>
                                 </g>
                               </svg></span></span></span></span>
-                                    </strong><span class="Comment-date">17.04.2020 16:40</span>
+                                    </strong><span class="Comment-date" th:text="${review.getFormatDate()}">17.04.2020 16:40</span>
                                 </div>
                             </header>
                             <div class="Comment-content">
                                 <div class="Spoiler">
                                     <div class="Spoiler-visible">
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit doli. Aenean commodo
+                                        <p th:text="${review.getLittleReview()}">Lorem ipsum dolor sit amet,
+                                            consectetuer adipiscing elit doli. Aenean commodo
                                             ligula eget dolor. Aenean massa. Cumtipsu sociis natoque penatibus et magnis
                                             dis parturient montesti, nascetur ridiculus mus. Donec quam felis, ultricies
                                             nec, pellentesque eutu, pretiumem. Nulla consequat massa quis enim. Donec
@@ -651,8 +627,9 @@ p.error-browser
                                             ligula, porttitor eu, consequat vitae.
                                         </p>
                                     </div>
-                                    <div class="Spoiler-hide">
-                                        <p>Первая книга - сборник повестей и рассказов "Большой поток" - посвящена людям
+                                    <div class="Spoiler-hide" th:if="${review.isBigReview()}">
+                                        <p th:text="${review.getOtherPartReview()}">Первая книга - сборник повестей и
+                                            рассказов "Большой поток" - посвящена людям
                                             леспромхоза. Автор книг "Рассказы" (1954), "Неразменное счастье. Повести и
                                             рассказы" (1962). Наиболее известная его повесть "Девчата" (1961) переведена
                                             на пятнадцать языков. По написанному им же сценарию был поставлен
@@ -675,6 +652,7 @@ p.error-browser
                                             </button>
                                         </div>
                                         <button class="Spoiler-trigger btn btn_primary btn_nr" type="button"
+                                                th:if="${review.isBigReview()}"
                                                 data-showtext="Свернуть отзыв" data-hidetext="Показать отзыв полностью">
                                         </button>
                                     </div>
