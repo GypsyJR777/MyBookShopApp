@@ -5,20 +5,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class UserController {
-    @GetMapping("/signin")
-    public String signInPage() {
-        return "signin";
-    }
+//    @GetMapping("/signin")
+//    public String signInPage() {
+//        return "signin";
+//    }
 
-    @GetMapping("/signup")
-    public String signUpPage() {
-        return "signup";
-    }
+//    @GetMapping("/signup")
+//    public String signUpPage() {
+//        return "signup";
+//    }
 
-    @GetMapping("/profile")
-    public String profilePage() {
-        return "profile";
-    }
+
+//    @GetMapping("/profile")
+//    public String profilePage() {
+//        return "profile";
+//    }
+//    @GetMapping("/profile")
+//    public String profilePage() {
+//        return "profile";
+//    }
 
 //    @GetMapping("/transactions")
 //    public String transactionsPage() {
@@ -30,8 +35,8 @@ public class UserController {
 //        return "payment";
 //    }
 
-    @GetMapping("/my")
-    public String myBooksPage() {
-        return "my";
-    }
+//    @GetMapping("/my")
+//    public String myBooksPage() {
+//        return "my";
+//    }
 }
