@@ -1,24 +1,24 @@
-package com.github.gypsyjr777.controller;
+package com.github.gypsyjr777.security.controller;
 
-import com.github.gypsyjr777.errs.EmptySearchException;
+import com.github.gypsyjr777.security.errs.NoUserFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.net.BindException;
+import javax.security.auth.message.AuthException;
 import java.util.logging.Logger;
 
 @ControllerAdvice
-public class GlobalExceptionHandlerController {
-    @ExceptionHandler(EmptySearchException.class)
-    public String handleEmptySearchException(EmptySearchException e, RedirectAttributes redirectAttributes) {
+public class AuthExceptionHandlerController {
+    @ExceptionHandler(AuthException.class)
+    public String handleAuthException(AuthException e, RedirectAttributes redirectAttributes) {
         Logger.getLogger(this.getClass().getSimpleName()).warning(e.getLocalizedMessage());
         redirectAttributes.addFlashAttribute("searchError", e);
         return "redirect:/";
     }
 
-    @ExceptionHandler(BindException.class)
-    public String handleBindException(BindException e, RedirectAttributes redirectAttributes) {
+    @ExceptionHandler(NoUserFoundException.class)
+    public String handleNoUserFoundException(NoUserFoundException e, RedirectAttributes redirectAttributes) {
         Logger.getLogger(this.getClass().getSimpleName()).warning(e.getLocalizedMessage());
         redirectAttributes.addFlashAttribute("searchError", e);
         return "redirect:/";

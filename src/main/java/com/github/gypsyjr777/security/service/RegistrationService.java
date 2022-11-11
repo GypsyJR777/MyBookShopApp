@@ -1,5 +1,6 @@
 package com.github.gypsyjr777.security.service;
 
+import com.github.gypsyjr777.security.errs.NoUserFoundException;
 import com.github.gypsyjr777.security.jwt.JWTUtil;
 import com.github.gypsyjr777.security.model.*;
 import com.github.gypsyjr777.security.repository.BookstoreUserRepository;
@@ -37,6 +38,8 @@ public class RegistrationService {
             user.setPassword(passwordEncoder.encode(registrationForm.getPass()));
 
             bookstoreUserRepository.save(user);
+        } else {
+            throw new NoUserFoundException("No user found");
         }
     }
 
