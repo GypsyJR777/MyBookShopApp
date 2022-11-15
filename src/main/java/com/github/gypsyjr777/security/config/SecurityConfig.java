@@ -1,5 +1,6 @@
 package com.github.gypsyjr777.security.config;
 
+import com.github.gypsyjr777.security.controller.MyLogoutHandler;
 import com.github.gypsyjr777.security.jwt.JWTRequestFilter;
 import com.github.gypsyjr777.security.service.BookstoreUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -20,11 +20,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final BookstoreUserDetailsService bookstoreUserDetailsService;
     private final JWTRequestFilter filter;
+    private final MyLogoutHandler logoutHandler;
 
     @Autowired
-    public SecurityConfig(BookstoreUserDetailsService bookstoreUserDetailsService, JWTRequestFilter filter) {
+    public SecurityConfig(BookstoreUserDetailsService bookstoreUserDetailsService, JWTRequestFilter filter, MyLogoutHandler logoutHandler) {
         this.bookstoreUserDetailsService = bookstoreUserDetailsService;
         this.filter = filter;
+        this.logoutHandler = logoutHandler;
     }
 
     @Bean
@@ -52,11 +54,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/my","/profile").authenticated()//.hasRole("USER")
                 .antMatchers("/**").permitAll()
-                .and().formLogin()
+                .and()
+                    .formLogin()
                 .loginPage("/signin").failureUrl("/signin")
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/signin").deleteCookies("token")
-                .and().oauth2Login()
-                .and().oauth2Client();
+                .and()
+                    .logout()
+                    .logoutUrl("/logout")
+                    .addLogoutHandler(logoutHandler)
+                    .logoutSuccessUrl("/signin")
+                    .deleteCookies("token")
+                .and()
+                    .oauth2Login()
+                .and()
+                    .oauth2Client();
 
 //        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);

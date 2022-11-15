@@ -67,6 +67,7 @@ public class RegistrationService {
         String jwtToken = jwtUtil.generateToken(userDetails);
         ContactConfirmationResponse response = new ContactConfirmationResponse();
         response.setResult(jwtToken);
+
         return response;
     }
 

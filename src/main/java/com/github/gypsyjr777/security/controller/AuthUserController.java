@@ -4,6 +4,7 @@ import com.github.gypsyjr777.entity.search.SearchWordDto;
 import com.github.gypsyjr777.security.model.ContactConfirmationPayload;
 import com.github.gypsyjr777.security.model.ContactConfirmationResponse;
 import com.github.gypsyjr777.security.model.RegistrationForm;
+import com.github.gypsyjr777.security.service.JWTBlacklistService;
 import com.github.gypsyjr777.security.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,10 +20,12 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class AuthUserController {
     private final RegistrationService registrationService;
+    private final JWTBlacklistService jwtBlacklistService;
 
     @Autowired
-    public AuthUserController(RegistrationService registrationService) {
+    public AuthUserController(RegistrationService registrationService, JWTBlacklistService jwtBlacklistService) {
         this.registrationService = registrationService;
+        this.jwtBlacklistService = jwtBlacklistService;
     }
 
     @ModelAttribute("searchWordDto")
@@ -75,7 +78,14 @@ public class AuthUserController {
     }
 
     @GetMapping("/my")
-    public String myBooksPage() {
+    public String myBooksPage(HttpServletRequest request) {
+        for (Cookie cookie: request.getCookies()) {
+            if (cookie.getName().equals("token") && jwtBlacklistService.isTokenOld(cookie.getValue())) {
+                cookie.setMaxAge(0);
+                return "redirect:/signin";
+            }
+        }
+
         return "my";
     }
 
@@ -94,6 +104,9 @@ public class AuthUserController {
 //        }
 //
 //        for (Cookie cookie : request.getCookies()) {
+//            if (cookie.getName().equals("token")) {
+//                jwtBlacklistService.addToken(cookie.getValue());
+//            }
 //            cookie.setMaxAge(0);
 //        }
 //
