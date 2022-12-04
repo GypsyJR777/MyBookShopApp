@@ -5,6 +5,8 @@ import com.github.gypsyjr777.security.repository.JWTBlacklistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class JWTBlacklistService {
     private final JWTBlacklistRepository jwtBlacklistRepository;
@@ -18,6 +20,7 @@ public class JWTBlacklistService {
         if (token != null && !token.isBlank()) {
             JWTBlacklist jwtBlacklist = new JWTBlacklist();
             jwtBlacklist.setToken(token);
+            jwtBlacklist.setDate(new Date());
 
             jwtBlacklistRepository.save(jwtBlacklist);
         }

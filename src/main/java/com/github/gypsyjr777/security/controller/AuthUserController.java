@@ -78,10 +78,14 @@ public class AuthUserController {
     }
 
     @GetMapping("/my")
-    public String myBooksPage(HttpServletRequest request) {
+    public String myBooksPage(HttpServletRequest request, HttpServletResponse response) {
         for (Cookie cookie: request.getCookies()) {
             if (cookie.getName().equals("token") && jwtBlacklistService.isTokenOld(cookie.getValue())) {
+                cookie.setValue("");
+                cookie.setPath("/");
                 cookie.setMaxAge(0);
+
+                response.addCookie(cookie);
                 return "redirect:/signin";
             }
         }

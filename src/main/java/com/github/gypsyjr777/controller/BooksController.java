@@ -16,9 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -56,13 +58,17 @@ public class BooksController {
     }
 
     @GetMapping("/{slug}")
-    public String bookSlugPage(@PathVariable String slug, Model model) {
+    public String bookSlugPage(@PathVariable String slug, Model model, HttpServletRequest request) {
         List<Integer> rates = bookService.getRates(slug);
 
         model.addAttribute("slugBook", bookService.getBookBySlug(slug));
         model.addAttribute("bookRate", bookService.getRateByBookSlug(slug));
         model.addAttribute("bookRates", rates);
         model.addAttribute("reviews", bookService.getReviews(slug));
+        model.addAttribute("isAuth", Arrays.stream(request.getCookies()).anyMatch(
+                        it -> it.getName().equals("token")
+                )
+        );
 
         return "books/slug";
     }

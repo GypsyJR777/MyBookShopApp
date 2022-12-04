@@ -367,7 +367,7 @@ p.error-browser
                                     </div>
                                 </button>
                             </div>
-                            <div class="ProductCard-assessment">
+                            <div class="ProductCard-assessment" th:if="${isAuth}">
                                 <span class="ProductCard-titleProp"
                                       th:text="#{books.rate}">Оцените книгу:</span>
                                 <span class="Rating Rating_input" data-bookid="2121"
@@ -495,7 +495,7 @@ p.error-browser
                                 </button>
                             </div>
                         </div>
-                        <div class="ProductCard-cart">
+                        <div class="ProductCard-cart" th:if="${isAuth}">
                             <!--+div.-cartElement.-cartElement_amount-->
                             <!--    +Amount._product-->
                             <div class="ProductCard-cartElement"><a class="btn btn_primary btn_outline" href="#"><span
@@ -503,7 +503,7 @@ p.error-browser
                                                           alt="download.svg"/></span><span
                                     class="btn-content">Скачать</span></a>
                             </div>
-                            <div class="ProductCard-cartElement">
+                            <div class="ProductCard-cartElement" th:if="${isAuth}">
                                 <button class="btn btn_primary btn_outline" data-sendstatus="ARCHIVED"
                                         data-bookid="[1111]" data-btntype="check" data-btnradio="buyblock"
                                         data-check="false" data-alttext="Вернуть из архива"><span class="btn-icon"><img
@@ -535,7 +535,7 @@ p.error-browser
                 <div th:if="${!isAuth}">
                     <h2>Чтобы оставить отзыв, авторизуйтесь</h2>
                 </div>
-                <div th:if="${!isAuth}">
+                <div th:if="${isAuth}">
                     <div id="reviewText" contenteditable="true" tabindex="0" dir="ltr" spellcheck="false"
                          autocapitalize="off"
                          autofocus></div>
@@ -637,7 +637,7 @@ p.error-browser
                                         </p>
                                     </div>
                                     <div class="Comment-footer">
-                                        <div class="Comment-appeal">
+                                        <div class="Comment-appeal" th:if="${isAuth}">
                                             <button class="btn btn_white btn_like" data-btntype="check"
                                                     data-check="false" data-btnradio="one1" data-likeid="333"><span
                                                     class="btn-icon"><img src="/assets/img/icons/comment/like.svg"

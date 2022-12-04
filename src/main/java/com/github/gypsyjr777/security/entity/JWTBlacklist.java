@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "jwt_blacklist")
@@ -16,4 +17,7 @@ public class JWTBlacklist {
 
     @Column(name = "token", unique = true)
     private String token;
+
+    @Column(name = "closed_date")
+    private Date date;
 }
