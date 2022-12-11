@@ -2,6 +2,7 @@ package com.github.gypsyjr777.security.jwt;
 
 import com.github.gypsyjr777.security.model.BookstoreUserDetails;
 import com.github.gypsyjr777.security.service.BookstoreUserDetailsService;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -35,9 +36,18 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    token = cookie.getValue();
-                    username = jwtUtil.extractUsername(token);
+                try {
+                    if (cookie.getName().equals("token")) {
+                        token = cookie.getValue();
+                        username = jwtUtil.extractUsername(token);
+                        System.out.println(jwtUtil.extractExpiration(token));
+                    }
+                } catch (ExpiredJwtException exception){
+                    cookie.setValue("");
+                    cookie.setPath("/");
+                    cookie.setMaxAge(0);
+
+                    httpServletResponse.addCookie(cookie);
                 }
 
                 if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
