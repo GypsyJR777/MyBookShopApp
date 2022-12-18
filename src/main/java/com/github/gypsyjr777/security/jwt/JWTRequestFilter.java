@@ -40,7 +40,6 @@ public class JWTRequestFilter extends OncePerRequestFilter {
                     if (cookie.getName().equals("token")) {
                         token = cookie.getValue();
                         username = jwtUtil.extractUsername(token);
-                        System.out.println(jwtUtil.extractExpiration(token));
                     }
                 } catch (ExpiredJwtException exception){
                     cookie.setValue("");
