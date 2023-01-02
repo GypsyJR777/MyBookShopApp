@@ -28,7 +28,7 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_DB: bookstore        
+          POSTGRES_DB: bookstore, bookstore_test   
           POSTGRES_PASSWORD: 12345678
           POSTGRES_USER: gypsyjr
         ports:
