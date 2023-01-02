@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class AuthorService {
-    private AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
 
     @Autowired
     public AuthorService(AuthorRepository authorRepository) {
@@ -29,7 +29,6 @@ public class AuthorService {
         List<Author> authors = getAuthorsData();
         Map<String, List<Author>> fLettersAuthors = new TreeMap<>(authors.stream().collect(
                 Collectors.groupingBy((Author a) -> a.getLastName().substring(0, 1)))
-//                Collectors.groupingBy((Author a) -> a.getName().split(" ")[1].substring(0, 1))
         );
 
         List<FirstLetterAuthor> firstLetterAuthors = new ArrayList<>();

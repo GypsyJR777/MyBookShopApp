@@ -3,6 +3,7 @@ package com.github.gypsyjr777.controller;
 import com.github.gypsyjr777.entity.book.Book;
 import com.github.gypsyjr777.entity.search.SearchWordDto;
 import com.github.gypsyjr777.service.BookService;
+import com.github.gypsyjr777.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,11 +84,7 @@ public class BookShopCartController {
             model.addAttribute("isCartEmpty", true);
         } else {
             model.addAttribute("isCartEmpty", false);
-            cartContents = cartContents.startsWith("/") ? cartContents.substring(1) : cartContents;
-            cartContents = cartContents.endsWith("/") ? cartContents.substring(0, cartContents.length() - 1) : cartContents;
-
-            String[] cookieSlugs = cartContents.split("/");
-            List<Book> booksFromCookiesSlug = bookService.getBooksBySlugs(cookieSlugs);
+            List<Book> booksFromCookiesSlug = Utils.substringStartAndEnd(cartContents, bookService);
 
             model.addAttribute("bookCart", booksFromCookiesSlug);
         }

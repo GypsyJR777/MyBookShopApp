@@ -59,16 +59,20 @@ public class BooksController {
 
     @GetMapping("/{slug}")
     public String bookSlugPage(@PathVariable String slug, Model model, HttpServletRequest request) {
-        List<Integer> rates = bookService.getRates(slug);
+        Book book = bookService.getBookBySlug(slug);
+        List<Integer> rates = bookService.getRates(book);
 
-        model.addAttribute("slugBook", bookService.getBookBySlug(slug));
-        model.addAttribute("bookRate", bookService.getRateByBookSlug(slug));
+        model.addAttribute("slugBook", book);
+        model.addAttribute("bookRate", bookService.getRateByBook(book));
         model.addAttribute("bookRates", rates);
-        model.addAttribute("reviews", bookService.getReviews(slug));
-        model.addAttribute("isAuth", Arrays.stream(request.getCookies()).anyMatch(
-                        it -> it.getName().equals("token")
-                )
-        );
+        model.addAttribute("reviews", bookService.getReviews(book));
+
+        if (request.getCookies() != null) {
+            model.addAttribute("isAuth", Arrays.stream(request.getCookies()).anyMatch(
+                            it -> it.getName().equals("token")
+                    )
+            );
+        }
 
         return "books/slug";
     }
