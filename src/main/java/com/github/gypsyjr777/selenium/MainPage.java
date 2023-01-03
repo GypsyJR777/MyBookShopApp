@@ -4,11 +4,12 @@ package com.github.gypsyjr777.selenium;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class MainPage {
     private String url = "http://localhost:8085/";
-    private FirefoxDriver driver;
-    public MainPage(FirefoxDriver driver) {
+    private RemoteWebDriver driver;
+    public MainPage(RemoteWebDriver driver) {
         this.driver = driver;
     }
 
