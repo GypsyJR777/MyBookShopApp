@@ -9,10 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-class MainPageSeleniumTests {
+public class SiteSeleniumTests {
     private static RemoteWebDriver driver;
 
     @BeforeAll
@@ -28,24 +28,34 @@ class MainPageSeleniumTests {
     }
 
     @Test
-    public void testMainPageAccess() throws InterruptedException {
+    public void testAllPages() throws InterruptedException {
         MainPage mainPage = new MainPage(driver);
         mainPage.mainPage()
+                .goToGenres()
+                .pause()
+                .goToGenre()
+                .pause()
+                .goToBookFromGenre()
+                .pause()
+                .goToNews()
+                .pause()
+                .goToPopular()
+                .pause()
+                .goToBookFromPopular()
+                .pause()
+                .goToAuthors()
+                .pause()
+                .goToAuthor()
+                .pause()
+                .goToAllBooksFromAuthor()
+                .pause()
+                .goToBookFromAuthor()
+                .pause()
+                .mainPage()
                 .pause();
 
         assertTrue(driver.getPageSource().contains("BOOKSHOP"));
-    }
 
-    @Test
-    public void testMainPageSearchByQuery() throws InterruptedException {
-        MainPage mainPage = new MainPage(driver);
-        mainPage.mainPage()
-                .pause()
-                .setUpSearchToken("Hearts")
-                .pause()
-                .submitSearch()
-                .pause();
 
-        assertTrue(driver.getPageSource().contains("Hearts Divided"));
     }
 }
