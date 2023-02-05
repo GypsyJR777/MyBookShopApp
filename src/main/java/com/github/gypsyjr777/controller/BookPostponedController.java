@@ -3,6 +3,7 @@ package com.github.gypsyjr777.controller;
 import com.github.gypsyjr777.entity.book.Book;
 import com.github.gypsyjr777.entity.search.SearchWordDto;
 import com.github.gypsyjr777.service.BookService;
+import com.github.gypsyjr777.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,12 +84,7 @@ public class BookPostponedController {
             model.addAttribute("isPostponedEmpty", true);
         } else {
             model.addAttribute("isPostponedEmpty", false);
-            postponedContents = postponedContents.startsWith("/") ? postponedContents.substring(1) : postponedContents;
-            postponedContents = postponedContents.endsWith("/") ? postponedContents.substring(0, postponedContents.length() - 1)
-                    : postponedContents;
-
-            String[] cookieSlugs = postponedContents.split("/");
-            List<Book> booksFromCookiesSlug = bookService.getBooksBySlugs(cookieSlugs);
+            List<Book> booksFromCookiesSlug = Utils.substringStartAndEnd(postponedContents, bookService);
 
             model.addAttribute("bookPostponed", booksFromCookiesSlug);
         }

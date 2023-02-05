@@ -141,13 +141,12 @@ public class BookService {
         bookRateRepository.save(bookRate);
     }
 
-    public Integer getRateByBookSlug(String slug) {
-        return bookRateRepository.findAvgByBook(bookRepository.findBookBySlug(slug));
+    public Integer getRateByBook(Book book) {
+        return bookRateRepository.findAvgByBook(book);
     }
 
-    public List<Integer> getRates(String slug) {
+    public List<Integer> getRates(Book book) {
         List<Integer> rates = new ArrayList<>();
-        Book book = bookRepository.findBookBySlug(slug);
 
         for (int i = 0; i < 5; ++i) {
             rates.add(bookRateRepository.countByBookAndRate(book, i + 1));
@@ -175,7 +174,7 @@ public class BookService {
         }
     }
 
-    public List<BookReviewEntity> getReviews(String slug) {
-        return bookReviewRepository.findAllByBook(bookRepository.findBookBySlug(slug));
+    public List<BookReviewEntity> getReviews(Book book) {
+        return bookReviewRepository.findAllByBook(book);
     }
 }
