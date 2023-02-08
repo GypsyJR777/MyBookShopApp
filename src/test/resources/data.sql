@@ -1,4 +1,4 @@
-create table public.authors
+/*create table public.authors
 (
     id          serial
         primary key,
@@ -267,7 +267,7 @@ create table public.user_contact
         constraint fknjr99y54g58jfdl4dqg4k7q5v
             references public.users_entity
 );
-
+*/
 
 insert into users (id,email,name,password,phone) values(1,'qwe@mail.ru','qwe','$2a$10$M6dOunxEPsRmB/LgkiXDouLt9iFfZTKvpdwUMR4Xwp3VzNsNsekfK','+7 (123) 123-12-31');
 
