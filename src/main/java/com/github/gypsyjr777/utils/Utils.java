@@ -2,7 +2,6 @@ package com.github.gypsyjr777.utils;
 
 import com.github.gypsyjr777.entity.book.Book;
 import com.github.gypsyjr777.service.BookService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CookieValue;
 
 import java.util.List;
