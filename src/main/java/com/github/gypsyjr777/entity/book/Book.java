@@ -55,7 +55,7 @@ public class Book {
     @Column(name = "price")
     @JsonProperty("price")
     @ApiModelProperty("book price without discount")
-    private Integer priceOld;
+    private Double priceOld;
 
     @Column(name = "discount")
     @JsonProperty("discount")
@@ -75,7 +75,7 @@ public class Book {
     private List<BookFile> bookFileList = new ArrayList<>();
 
     @JsonProperty
-    public Integer discountPrice() {
+    public Double discountPrice() {
         return priceOld - Math.toIntExact(Math.round(price * priceOld));
     }
 

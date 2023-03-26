@@ -5,6 +5,7 @@ import com.github.gypsyjr777.entity.book.Book;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ import java.util.List;
 @ApiModel(description = "data model of author entity")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Author {
 
     @Id
@@ -34,6 +36,10 @@ public class Author {
     @OneToMany(mappedBy = "author")
     @JsonIgnore
     private List<Book> bookList = new ArrayList<>();
+
+    public Author(ArrayList<String> authors) {
+
+    }
 
     @Override
     public String toString() {

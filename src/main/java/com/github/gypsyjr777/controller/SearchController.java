@@ -39,7 +39,8 @@ public class SearchController {
             model.addAttribute("searchWordDto", searchWord);
             model.addAttribute(
                     "booksList",
-                    bookService.getPageOfSearchResultBooks(searchWord.getExample(), 0, 5).getContent()
+//                    bookService.getPageOfSearchResultBooks(searchWord.getExample(), 0, 5).getContent()
+                    bookService.getBooksFromGoogle(searchWord.getExample(), 0, 5)
             );
 
             return "search/index";
@@ -52,6 +53,7 @@ public class SearchController {
     @ResponseBody
     public BooksCount getNextSearchPage(@RequestParam("offset") Integer offset, @RequestParam("limit") Integer limit,
                                         @PathVariable(value = "searchWordDto", required = false) SearchWordDto searchWord) {
-        return new BooksCount(bookService.getPageOfSearchResultBooks(searchWord.getExample(), offset, limit).getContent());
+//        return new BooksCount(bookService.getPageOfSearchResultBooks(searchWord.getExample(), offset, limit).getContent());
+        return new BooksCount(bookService.getBooksFromGoogle(searchWord.getExample(), offset, limit));
     }
 }

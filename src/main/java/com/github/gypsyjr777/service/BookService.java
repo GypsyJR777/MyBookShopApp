@@ -8,6 +8,7 @@ import com.github.gypsyjr777.errs.BookstoreApiWrongParameterException;
 import com.github.gypsyjr777.repository.BookRateRepository;
 import com.github.gypsyjr777.repository.BookRepository;
 import com.github.gypsyjr777.repository.BookReviewRepository;
+import com.github.gypsyjr777.service.api.google.GoogleBooksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,12 +28,15 @@ public class BookService {
     private final BookRepository bookRepository;
     private final BookRateRepository bookRateRepository;
     private final BookReviewRepository bookReviewRepository;
+    private final GoogleBooksService googleBooksService;
 
     @Autowired
-    public BookService(BookRepository bookRepository, BookRateRepository bookRateRepository, BookReviewRepository bookReviewRepository) {
+    public BookService(BookRepository bookRepository, BookRateRepository bookRateRepository,
+                       BookReviewRepository bookReviewRepository, GoogleBooksService googleBooksService) {
         this.bookRepository = bookRepository;
         this.bookRateRepository = bookRateRepository;
         this.bookReviewRepository = bookReviewRepository;
+        this.googleBooksService = googleBooksService;
     }
 
     public List<Book> getBooksData() {
@@ -176,5 +180,9 @@ public class BookService {
 
     public List<BookReviewEntity> getReviews(Book book) {
         return bookReviewRepository.findAllByBook(book);
+    }
+
+    public List<Book> getBooksFromGoogle (String searchWord, Integer offset, Integer limit) {
+        return googleBooksService.getPageOfGoogleBookApiSearchResult(searchWord, offset, limit);
     }
 }
