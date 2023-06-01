@@ -9,6 +9,7 @@ import com.github.gypsyjr777.security.model.RegistrationForm;
 import com.github.gypsyjr777.security.service.CodeService;
 import com.github.gypsyjr777.security.service.JWTBlacklistService;
 import com.github.gypsyjr777.security.service.RegistrationService;
+import com.github.gypsyjr777.security.service.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -27,15 +28,17 @@ public class AuthUserController {
     private final JavaMailSender javaMailSender;
     private final EmailConfig emailConfig;
     private final CodeService codeService;
+    private final SmsService smsService;
 
     @Autowired
     public AuthUserController(RegistrationService registrationService, JWTBlacklistService jwtBlacklistService,
-                              JavaMailSender javaMailSender, EmailConfig emailConfig, CodeService codeService) {
+                              JavaMailSender javaMailSender, EmailConfig emailConfig, CodeService codeService, SmsService smsService) {
         this.registrationService = registrationService;
         this.jwtBlacklistService = jwtBlacklistService;
         this.javaMailSender = javaMailSender;
         this.emailConfig = emailConfig;
         this.codeService = codeService;
+        this.smsService = smsService;
     }
 
     @ModelAttribute("searchWordDto")
@@ -59,7 +62,14 @@ public class AuthUserController {
     public ContactConfirmationResponse handleRequestContactConfirmation(@RequestBody ContactConfirmationPayload contactConfirmationPayload) {
         ContactConfirmationResponse response = new ContactConfirmationResponse();
         response.setResult("true");
-        return response;
+
+        if (contactConfirmationPayload.getContact().contains("@")) {
+            return response;
+        } else {
+            String smsCodeString = smsService.sendSecretCodeSms(contactConfirmationPayload.getContact());
+            smsService.saveNewCode(new UserCode(smsCodeString, 60)); //expires in 1 min.
+            return response;
+        }
     }
 
     @PostMapping("/requestEmailConfirmation")
@@ -69,7 +79,7 @@ public class AuthUserController {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(emailConfig.getEmail());
         message.setTo(payload.getContact());
-        UserCode smsCode = new UserCode(codeService.generateCode(),300); //5 minutes
+        UserCode smsCode = new UserCode(codeService.generateCode(), 300); //5 minutes
         codeService.saveNewCode(smsCode);
         message.setSubject("Bookstore email verification!");
         message.setText("Verification code is: " + smsCode.getCode());
@@ -90,7 +100,7 @@ public class AuthUserController {
     public ContactConfirmationResponse handleApproveContact(@RequestBody ContactConfirmationPayload payload) {
         ContactConfirmationResponse response = new ContactConfirmationResponse();
 
-        if(codeService.verifyCode(payload.getCode())){
+        if (codeService.verifyCode(payload.getCode())) {
             response.setResult("true");
         }
 
@@ -107,9 +117,23 @@ public class AuthUserController {
         return loginResponse;
     }
 
+    @PostMapping("/login-by-phone-number")
+    @ResponseBody
+    public ContactConfirmationResponse handleLoginByPhoneNumber(@RequestBody ContactConfirmationPayload payload,
+                                                                HttpServletResponse httpServletResponse) {
+        if(smsService.verifyCode(payload.getCode())) {
+            ContactConfirmationResponse loginResponse = registrationService.jwtLoginByPhoneNumber(payload);
+            Cookie cookie = new Cookie("token", loginResponse.getResult());
+            httpServletResponse.addCookie(cookie);
+            return loginResponse;
+        }else {
+            return null;
+        }
+    }
+
     @GetMapping("/my")
     public String myBooksPage(HttpServletRequest request, HttpServletResponse response) {
-        for (Cookie cookie: request.getCookies()) {
+        for (Cookie cookie : request.getCookies()) {
             if (cookie.getName().equals("token") && jwtBlacklistService.isTokenOld(cookie.getValue())) {
                 cookie.setValue("");
                 cookie.setPath("/");
