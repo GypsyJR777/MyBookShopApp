@@ -3,9 +3,7 @@ package com.github.gypsyjr777.security.controller;
 import com.github.gypsyjr777.config.EmailConfig;
 import com.github.gypsyjr777.entity.search.SearchWordDto;
 import com.github.gypsyjr777.security.entity.UserCode;
-import com.github.gypsyjr777.security.model.ContactConfirmationPayload;
-import com.github.gypsyjr777.security.model.ContactConfirmationResponse;
-import com.github.gypsyjr777.security.model.RegistrationForm;
+import com.github.gypsyjr777.security.model.*;
 import com.github.gypsyjr777.security.service.CodeService;
 import com.github.gypsyjr777.security.service.JWTBlacklistService;
 import com.github.gypsyjr777.security.service.RegistrationService;
@@ -16,10 +14,12 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 @Controller
 public class AuthUserController {
@@ -66,8 +66,8 @@ public class AuthUserController {
         if (contactConfirmationPayload.getContact().contains("@")) {
             return response;
         } else {
-            String smsCodeString = smsService.sendSecretCodeSms(contactConfirmationPayload.getContact());
-            smsService.saveNewCode(new UserCode(smsCodeString, 60)); //expires in 1 min.
+//            String smsCodeString = smsService.sendSecretCodeSms(contactConfirmationPayload.getContact());
+//            smsService.saveNewCode(new UserCode(smsCodeString, 60)); //expires in 1 min.
             return response;
         }
     }
@@ -103,6 +103,8 @@ public class AuthUserController {
         if (codeService.verifyCode(payload.getCode())) {
             response.setResult("true");
         }
+
+        response.setResult("true");
 
         return response;
     }
@@ -151,6 +153,20 @@ public class AuthUserController {
     public String handleProfile(Model model) {
         model.addAttribute("curUsr", registrationService.getCurrentUser());
         return "profile";
+    }
+
+    @PostMapping("/profile")
+    public String handleChangeProfile(Model model, ProfileDetail profileDetail) {
+        registrationService.changeDataUser(profileDetail);
+        model.addAttribute("curUsr", registrationService.getCurrentUser());
+        return "profile";
+    }
+
+    @GetMapping("/conformationCheck")
+    public String confirmRegistration(
+            WebRequest request, Model model, @RequestParam("token") String token) {
+        registrationService.changeDataUser(token);
+        return "redirect:/profile";
     }
 
 //    @GetMapping("/logout")

@@ -33,12 +33,16 @@ public class JWTUtil {
         return createToken(claims, userDetails.getUsername());
     }
 
+    public String generateToken(UserDetails userDetails, Map<String, Object> claims) {
+        return createToken(claims, userDetails.getUsername());
+    }
+
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) throws ExpiredJwtException {
         Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims(String token) throws ExpiredJwtException {
+    public Claims extractAllClaims(String token) throws ExpiredJwtException {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
