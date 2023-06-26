@@ -6,6 +6,7 @@ import com.github.gypsyjr777.service.BookService;
 import com.github.gypsyjr777.service.PaymentService;
 import com.github.gypsyjr777.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -97,12 +98,12 @@ public class BookShopCartController {
         return "cart";
     }
 
+    @Secured("ROLE_USER")
     @GetMapping("/pay")
     public RedirectView handlePay (@CookieValue(value = "cartContents", required = false) String cartContents) throws NoSuchAlgorithmException {
         cartContents = cartContents.startsWith("/") ? cartContents.substring(1) : cartContents;
         cartContents = cartContents.endsWith("/") ? cartContents.substring(0, cartContents.length() - 1) :
                 cartContents;
-        String[] cookieSlugs = cartContents.split("/");
         List<Book> booksFromCookieSlugs = Utils.substringStartAndEnd(cartContents, bookService);
         String paymentUrl = paymentService.getPaymentUrl(booksFromCookieSlugs);
         return new RedirectView(paymentUrl);

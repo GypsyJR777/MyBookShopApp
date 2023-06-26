@@ -62,7 +62,7 @@ p.error-browser
                 </li>
                 <li class="breadcrumbs-item"><a href="/genres/index.html" th:href="@{/genres}" th:text="#{books.books}">Книги</a>
                 </li>
-                <li class="breadcrumbs-item breadcrumbs-item_current" th:text="${slugBook.title}">
+                <li class="breadcrumbs-item breadcrumbs-item_current" th:if="${slugBook != null}" th:text="${slugBook.title}">
                     <span>Мара и морок</span>
                 </li>
             </ul>
@@ -70,6 +70,7 @@ p.error-browser
                 <div class="ProductCard">
                     <div class="ProductCard-look">
                         <form id="imgForm" method="POST" enctype="multipart/form-data" action="#"
+                              th:if="${slugBook != null}"
                               th:action="${'/books/'+ slugBook.slug +'/img/save'}">
                             <div class="ProductCard-photo" id="uploadButton">
                                 <img th:src="${slugBook.image}"
@@ -81,11 +82,11 @@ p.error-browser
                     </div>
                     <div class="ProductCard-desc">
                         <div class="ProductCard-header">
-                            <h1 class="ProductCard-title" th:text="${slugBook.title}">Мара и морок
+                            <h1 class="ProductCard-title" th:if="${slugBook != null}" th:text="${slugBook.title}">Мара и морок
                             </h1>
                             <div class="ProductCard-author">
                                 <span class="ProductCard-titleProp" th:text="#{books.author}">Автор:</span>&#32;
-                                <a href="#" th:text="${slugBook.author}">Лия Арден</a>
+                                <a href="#" th:if="${slugBook != null}" th:text="${slugBook.author}">Лия Арден</a>
                             </div>
                             <div class="ProductCard-rating">
                                 <span class="ProductCard-titleProp" th:text="#{books.rating}">Рейтинг:</span>
@@ -450,8 +451,8 @@ p.error-browser
                             <div class="ProductCard-cost">
                                             <span class="ProductCard-titleProp"
                                                   th:text="#{books.price}">Цена:</span>
-                                <span class="ProductCard-priceOld" th:text="${slugBook.priceOld}">₽300</span>
-                                <span class="ProductCard-price" th:text="${slugBook.discountPrice()}">₽180</span>
+                                <span class="ProductCard-priceOld" th:if="${slugBook != null}" th:text="${slugBook.priceOld}">₽300</span>
+                                <span class="ProductCard-price" th:if="${slugBook != null}" th:text="${slugBook.discountPrice()}">₽180</span>
                             </div>
                             <!--+div.-info
                             //+div.-cost
@@ -463,7 +464,7 @@ p.error-browser
                             -->
                         </div>
                         <div class="ProductCard-text">
-                            <p th:text="${slugBook.description}">Таких, как я, называют Марами - отмеченными самой
+                            <p th:if="${slugBook != null}" th:text="${slugBook.description}">Таких, как я, называют Марами - отмеченными самой
                                 богиней смерти Мораной. Когда-то у меня
                                 и моих шести сестер был свой путь. Тогда люди нас уважали и просили о милосердии. Они
                                 приносили нам подношения и молились нам. Но 200 лет назад все изменилось, когда принц
@@ -478,6 +479,7 @@ p.error-browser
                             <!--    +Amount._product-->
                             <div class="ProductCard-cartElement">
                                 <button class="btn btn_primary btn_outline" data-sendstatus="KEPT" data-bookid="[1111]"
+                                        th:if="${slugBook != null}"
                                         th:attr="data-bookid = ${'postponed/' + slugBook.slug}"
                                         data-btntype="check" data-btnradio="buyblock" data-check="false"
                                         data-alttext="Отложена"><span class="btn-icon"><img
@@ -487,6 +489,7 @@ p.error-browser
                             </div>
                             <div class="ProductCard-cartElement">
                                 <button class="btn btn_primary btn_outline" data-sendstatus="CART" data-bookid="[1111]"
+                                        th:if="${slugBook != null}"
                                         th:attr="data-bookid = ${'cart/' + slugBook.slug}"
                                         data-btntype="check" data-btnradio="buyblock" data-check="false"
                                         data-alttext="В корзине"><span class="btn-icon"><img
@@ -513,9 +516,9 @@ p.error-browser
                             </div>
                         </div>
 
-                        <div id="myPopup">
+                        <div id="myPopup" th:if="${slugBook != null}">
                             <p>Ссылки для скачивания</p>
-                            <div th:each="bookFile : ${slugBook.bookFileList}">
+                            <div th:if="${slugBook != null && slugBook.bookFileList != null}" th:each="bookFile : ${slugBook.bookFileList}">
                                 <a
                                         href="#"
                                         th:href="${'download/' + bookFile.hash}"
@@ -542,6 +545,7 @@ p.error-browser
                     <div>
                         <button class="btn btn_primary" data-sendstatus="REVIEW"
                                 data-bookid="[1111]" data-check="false"
+                                th:if="${slugBook != null}"
                                 th:attr="data-bookid = ${'addreview/' + slugBook.slug}"
                                 data-btntype="check" data-btnradio="buyblock"
                                 data-alttext="Вернуть из архива">
