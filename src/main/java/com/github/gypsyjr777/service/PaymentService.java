@@ -22,6 +22,13 @@ public class PaymentService {
         double paymentSumTotal = books.stream().mapToDouble(Book::discountPrice).sum();
         BookstoreUser user = (BookstoreUser) registrationService.getCurrentUser();
         user.decBalance(paymentSumTotal);
+
+        StringBuilder booksName = new StringBuilder();
+
+        for (Book book: books) {
+            registrationService.transactionLog(user, "Произведена оплата книги " + book.getTitle() + " на сумму: " + book.discountPrice(), book);
+        }
+
         registrationService.updateBalanceUser(user);
     }
 }

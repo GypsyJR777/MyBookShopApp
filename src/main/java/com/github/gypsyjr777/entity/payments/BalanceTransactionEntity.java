@@ -2,6 +2,7 @@ package com.github.gypsyjr777.entity.payments;
 
 import com.github.gypsyjr777.entity.book.Book;
 import com.github.gypsyjr777.entity.user.UserEntity;
+import com.github.gypsyjr777.security.model.BookstoreUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,13 +20,14 @@ public class BalanceTransactionEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity user;
+//    private UserEntity user;
+    private BookstoreUser user;
 
     @Column(columnDefinition = "TIMESTAMP NOT NULL")
     private LocalDateTime time;
 
-    @Column(columnDefinition = "INT NOT NULL  DEFAULT 0")
-    private int value;
+    @Column(columnDefinition = "DOUBLE PRECISION NOT NULL DEFAULT 0")
+    private double value;
 
     @ManyToOne
     @JoinColumn(name = "book_id")

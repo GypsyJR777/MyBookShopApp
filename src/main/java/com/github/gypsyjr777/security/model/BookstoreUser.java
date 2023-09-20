@@ -18,7 +18,7 @@ public class BookstoreUser {
     private String phone;
     private String password;
 
-    @Column(columnDefinition = "DOUBLE NOT NULL DEFAULT 0")
+    @Column(columnDefinition = "DOUBLE PRECISION NOT NULL DEFAULT 0")
     private double balance = 0;
 
     public void addBalance(double sum) {

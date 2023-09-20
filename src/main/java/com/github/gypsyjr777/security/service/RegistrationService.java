@@ -1,12 +1,16 @@
 package com.github.gypsyjr777.security.service;
 
 import com.github.gypsyjr777.config.EmailConfig;
+import com.github.gypsyjr777.entity.book.Book;
+import com.github.gypsyjr777.entity.payments.BalanceTransactionEntity;
 import com.github.gypsyjr777.security.errs.CanNotChangeDataException;
 import com.github.gypsyjr777.security.errs.NoUserFoundException;
 import com.github.gypsyjr777.security.jwt.JWTUtil;
 import com.github.gypsyjr777.security.model.*;
+import com.github.gypsyjr777.security.repository.BalanceTransactionRepository;
 import com.github.gypsyjr777.security.repository.BookstoreUserRepository;
-import io.jsonwebtoken.Claims;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,7 +21,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -30,8 +36,10 @@ public class RegistrationService {
     private final JavaMailSender javaMailSender;
     private final EmailConfig emailConfig;
 
+    private final BalanceTransactionRepository balanceTransactionRepository;
 
-    public RegistrationService(BookstoreUserRepository bookstoreUserRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, BookstoreUserDetailsService bookstoreUserDetailsService, JWTUtil jwtUtil, JavaMailSender javaMailSender, EmailConfig emailConfig) {
+
+    public RegistrationService(BookstoreUserRepository bookstoreUserRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, BookstoreUserDetailsService bookstoreUserDetailsService, JWTUtil jwtUtil, JavaMailSender javaMailSender, EmailConfig emailConfig, BalanceTransactionRepository balanceTransactionRepository) {
         this.bookstoreUserRepository = bookstoreUserRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
@@ -39,6 +47,7 @@ public class RegistrationService {
         this.jwtUtil = jwtUtil;
         this.javaMailSender = javaMailSender;
         this.emailConfig = emailConfig;
+        this.balanceTransactionRepository = balanceTransactionRepository;
     }
 
     public void registerNewUser(RegistrationForm registrationForm) {
@@ -168,5 +177,35 @@ public class RegistrationService {
 
     public void updateBalanceUser(BookstoreUser user) {
         bookstoreUserRepository.save(user);
+    }
+
+    public void transactionLog(BookstoreUser user, String transactionLog, Book book) {
+        BalanceTransactionEntity balanceTransactionEntity = new BalanceTransactionEntity();
+
+        balanceTransactionEntity.setBook(book);
+        balanceTransactionEntity.setUser(user);
+        balanceTransactionEntity.setDescription(transactionLog);
+        balanceTransactionEntity.setTime(LocalDateTime.now());
+        balanceTransactionEntity.setValue(book.discountPrice());
+
+        balanceTransactionRepository.save(balanceTransactionEntity);
+    }
+
+    public void transactionLog(BookstoreUser user, String transactionLog, double incSum) {
+        BalanceTransactionEntity balanceTransactionEntity = new BalanceTransactionEntity();
+
+        balanceTransactionEntity.setUser(user);
+        balanceTransactionEntity.setDescription(transactionLog);
+        balanceTransactionEntity.setTime(LocalDateTime.now());
+        balanceTransactionEntity.setValue(incSum);
+
+        balanceTransactionRepository.save(balanceTransactionEntity);
+    }
+
+    public List<BalanceTransactionEntity> getTransactions(int offset, int limit) {
+        BookstoreUser bookstoreUser = (BookstoreUser) getCurrentUser();
+        Pageable nextPage = PageRequest.of(offset, limit);
+
+        return balanceTransactionRepository.findAllByUser(nextPage, bookstoreUser);
     }
 }

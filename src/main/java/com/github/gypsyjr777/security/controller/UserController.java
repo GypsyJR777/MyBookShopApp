@@ -1,6 +1,7 @@
 package com.github.gypsyjr777.security.controller;
 
 import com.github.gypsyjr777.config.EmailConfig;
+import com.github.gypsyjr777.entity.payments.TransactionCount;
 import com.github.gypsyjr777.entity.search.SearchWordDto;
 import com.github.gypsyjr777.security.entity.UserCode;
 import com.github.gypsyjr777.security.model.*;
@@ -156,7 +157,9 @@ public class UserController {
 
     @GetMapping("/profile")
     public String handleProfile(Model model) {
+
         model.addAttribute("curUsr", registrationService.getCurrentUser());
+        model.addAttribute("userTransactions", registrationService.getTransactions(0, 10));
         return "profile";
     }
 
@@ -186,9 +189,15 @@ public class UserController {
         BookstoreUser user = (BookstoreUser) registrationService.getCurrentUser();
         if (balanceService.checkResult(result) && user.getId() == result.getBody().getInvId()) {
             user.addBalance(result.getBody().getIncSum());
+            registrationService.transactionLog(user, "Пополнение счета на сумму: " + result.getBody().getIncSum(), result.getBody().getIncSum());
             registrationService.updateBalanceUser(user);
         }
         return "redirect:/profile";
+    }
+
+    @GetMapping("/transactions")
+    public TransactionCount refillBalanceOk(@RequestParam("sort") String sort, @RequestParam("offset") Integer offset, @RequestParam("limit") Integer limit) {
+        return new TransactionCount(registrationService.getTransactions(offset, limit));
     }
 //    @GetMapping("/logout")
 //    public String handleLogout(HttpServletRequest request) {
