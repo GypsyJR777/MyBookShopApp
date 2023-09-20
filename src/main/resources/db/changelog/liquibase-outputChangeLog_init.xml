@@ -334,4 +334,12 @@
     <changeSet author="gypsyjr (generated)" id="1661792995800-45">
         <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="file_download" constraintName="fkswtliibr0mrua60wbmecwlfyo" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="books"/>
     </changeSet>
+
+    <changeSet author="gypsyjr (generated)" id="1661792995800-46">
+        <update tableName="users">
+            <column name="balance" type="DOUBLE" value="0">
+                <constraints nullable="false"/>
+            </column>
+        </update>
+    </changeSet>
 </databaseChangeLog>

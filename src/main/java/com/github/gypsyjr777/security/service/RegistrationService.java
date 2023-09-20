@@ -165,4 +165,8 @@ public class RegistrationService {
 
         bookstoreUserRepository.save(user);
     }
+
+    public void updateBalanceUser(BookstoreUser user) {
+        bookstoreUserRepository.save(user);
+    }
 }

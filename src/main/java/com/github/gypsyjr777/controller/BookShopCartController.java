@@ -100,12 +100,12 @@ public class BookShopCartController {
 
     @Secured("ROLE_USER")
     @GetMapping("/pay")
-    public RedirectView handlePay (@CookieValue(value = "cartContents", required = false) String cartContents) throws NoSuchAlgorithmException {
+    public String handlePay (@CookieValue(value = "cartContents", required = false) String cartContents) throws NoSuchAlgorithmException {
         cartContents = cartContents.startsWith("/") ? cartContents.substring(1) : cartContents;
         cartContents = cartContents.endsWith("/") ? cartContents.substring(0, cartContents.length() - 1) :
                 cartContents;
         List<Book> booksFromCookieSlugs = Utils.substringStartAndEnd(cartContents, bookService);
-        String paymentUrl = paymentService.getPaymentUrl(booksFromCookieSlugs);
-        return new RedirectView(paymentUrl);
+        paymentService.pay(booksFromCookieSlugs);
+        return "redirect:/profile";
     }
 }

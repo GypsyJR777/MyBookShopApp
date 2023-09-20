@@ -4,41 +4,46 @@ import com.github.gypsyjr777.config.EmailConfig;
 import com.github.gypsyjr777.entity.search.SearchWordDto;
 import com.github.gypsyjr777.security.entity.UserCode;
 import com.github.gypsyjr777.security.model.*;
-import com.github.gypsyjr777.security.service.CodeService;
-import com.github.gypsyjr777.security.service.JWTBlacklistService;
-import com.github.gypsyjr777.security.service.RegistrationService;
-import com.github.gypsyjr777.security.service.SmsService;
+import com.github.gypsyjr777.security.service.*;
+import com.github.gypsyjr777.service.PaymentService;
+import io.jsonwebtoken.Jws;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @Controller
-public class AuthUserController {
+public class UserController {
     private final RegistrationService registrationService;
     private final JWTBlacklistService jwtBlacklistService;
     private final JavaMailSender javaMailSender;
     private final EmailConfig emailConfig;
     private final CodeService codeService;
     private final SmsService smsService;
+    private final BalanceService balanceService;
 
     @Autowired
-    public AuthUserController(RegistrationService registrationService, JWTBlacklistService jwtBlacklistService,
-                              JavaMailSender javaMailSender, EmailConfig emailConfig, CodeService codeService, SmsService smsService) {
+    public UserController(RegistrationService registrationService, JWTBlacklistService jwtBlacklistService,
+                          JavaMailSender javaMailSender, EmailConfig emailConfig, CodeService codeService,
+                          SmsService smsService, BalanceService balanceService) {
         this.registrationService = registrationService;
         this.jwtBlacklistService = jwtBlacklistService;
         this.javaMailSender = javaMailSender;
         this.emailConfig = emailConfig;
         this.codeService = codeService;
         this.smsService = smsService;
+        this.balanceService = balanceService;
     }
 
     @ModelAttribute("searchWordDto")
@@ -169,6 +174,22 @@ public class AuthUserController {
         return "redirect:/profile";
     }
 
+    @PostMapping(value = "/refill")
+    public RedirectView refillBalance(PaymentPayload payload) throws NoSuchAlgorithmException {
+        BookstoreUser user = (BookstoreUser) registrationService.getCurrentUser();
+        String paymentUrl = balanceService.getPaymentUrl(payload, user.getId());
+        return new RedirectView(paymentUrl);
+    }
+
+    @GetMapping("/refill/result")
+    public String refillBalanceOk(Jws<RobokassaResult> result) {
+        BookstoreUser user = (BookstoreUser) registrationService.getCurrentUser();
+        if (balanceService.checkResult(result) && user.getId() == result.getBody().getInvId()) {
+            user.addBalance(result.getBody().getIncSum());
+            registrationService.updateBalanceUser(user);
+        }
+        return "redirect:/profile";
+    }
 //    @GetMapping("/logout")
 //    public String handleLogout(HttpServletRequest request) {
 //        HttpSession session = request.getSession();

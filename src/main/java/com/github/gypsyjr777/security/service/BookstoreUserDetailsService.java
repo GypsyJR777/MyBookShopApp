@@ -34,4 +34,8 @@ public class BookstoreUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("user not found doh!");
         }
     }
+
+    public void saveUser(BookstoreUser user) {
+        bookstoreUserRepository.save(user);
+    }
 }
