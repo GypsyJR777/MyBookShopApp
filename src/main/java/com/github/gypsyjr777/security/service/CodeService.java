@@ -1,6 +1,6 @@
 package com.github.gypsyjr777.security.service;
 
-import com.github.gypsyjr777.security.entity.UserCode;
+import com.github.gypsyjr777.entity.security.UserCode;
 import com.github.gypsyjr777.security.repository.UserCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

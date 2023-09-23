@@ -1,6 +1,6 @@
 package com.github.gypsyjr777.security.config;
 
-import com.github.gypsyjr777.security.controller.MyLogoutHandler;
+import com.github.gypsyjr777.controller.MyLogoutHandler;
 import com.github.gypsyjr777.security.jwt.JWTRequestFilter;
 import com.github.gypsyjr777.security.service.BookstoreUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/my","/profile", "/books/pay", "/payment").authenticated()//.hasRole("USER")
+                .antMatchers("/my","/profile", "/books/pay", "/payment", "/refill", "/refill/result", "/transactions").authenticated()//.hasRole("USER")
                 .antMatchers("/**").permitAll()
                 .and()
                     .formLogin()

@@ -1,4 +1,4 @@
-package com.github.gypsyjr777.security.controller;
+package com.github.gypsyjr777.controller;
 
 import com.github.gypsyjr777.security.errs.NoUserFoundException;
 import io.jsonwebtoken.ExpiredJwtException;

@@ -1,6 +1,6 @@
 package com.github.gypsyjr777.security.service;
 
-import com.github.gypsyjr777.security.entity.UserCode;
+import com.github.gypsyjr777.entity.security.UserCode;
 import com.github.gypsyjr777.security.repository.UserCodeRepository;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;

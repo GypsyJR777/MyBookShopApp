@@ -1,4 +1,4 @@
-package com.github.gypsyjr777.security.entity;
+package com.github.gypsyjr777.entity.security;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
